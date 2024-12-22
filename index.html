@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutRatLibre</title>
+    <!-- Enlace a Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pM8YkpE+YQlkR4D0JeFOgFyHafG+VVUJ+Rj5khKxI4A3TgfAVoCqZ59k5HjgIp/bFeHO9+IhLgFIfHCiK7pYKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts para tipografía mejorada -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #16213e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid #ff7d47;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto; /* Cursor personalizado */
+            transition: background 0.5s ease;
+        }
+
+        header {
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            margin: 0;
+            color: #ff7d47;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 15px rgba(255, 125, 71, 0.6); /* Resplandor mejorado */
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff7d47, 0 0 20px #ff7d47, 0 0 30px #ff7d47;
+            }
+            to {
+                text-shadow: 0 0 20px #ff9a3d, 0 0 30px #ff9a3d, 0 0 40px #ff9a3d;
+            }
+        }
+
+        nav {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center; /* Centrar los elementos del nav */
+            align-items: center;
+        }
+
+        nav a {
+            color: #ff7d47;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1em;
+            transition: color 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #ff9a3d;
+            transition: width .3s;
+            margin: auto;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Menú hamburguesa */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #ff7d47;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Contenedor de botones */
+        .button-container {
+            margin: 120px 20px 40px 20px; /* Ajustado para el header fijo */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .channel {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            width: 180px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff7d47, #ff9a3d);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .channel:hover::before {
+            opacity: 0.2;
+        }
+
+        .channel:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .channel img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .channel:hover img {
+            transform: rotate(10deg);
+        }
+
+        .channel button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .channel button:hover {
+            background: linear-gradient(135deg, #ff9a3d, #ffb55d);
+        }
+
+        /* Separador decorativo */
+        .decorative-separator {
+            width: 80%;
+            height: 2px;
+            background: #ff7d47;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decorative-separator::before,
+        .decorative-separator::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff7d47, #ff9a3d);
+            top: 0;
+        }
+
+        .decorative-separator::before {
+            left: 0;
+            transform: skewX(-20deg);
+        }
+
+        .decorative-separator::after {
+            right: 0;
+            transform: skewX(20deg);
+        }
+
+        /* Contenedor del video */
+        .video-container {
+            margin: 50px auto;
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            padding: 0 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            background: #000;
+            transition: transform 0.3s ease;
+        }
+
+        iframe:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            padding: 30px 20px;
+            background: #10101a;
+            color: #bbbbbb;
+            font-size: 14px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            margin: 0 0 10px 0;
+        }
+
+        footer a {
+            color: #ff7d47;
+            text-decoration: none;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        footer a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #ff9a3d;
+            transition: width .3s;
+            margin: auto;
+        }
+
+        footer a:hover::after {
+            width: 100%;
+        }
+
+        /* Iconos de redes sociales en el footer */
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: #ff7d47;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ff9a3d;
+            transform: scale(1.2);
+        }
+
+        /* Partículas y estrellas */
+        .particle, .star {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .particle {
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #ff7d47, #ff914d);
+            opacity: 0.7;
+            animation: move 6s infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(100vw, 100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Nueva animación de estrellas */
+        .star {
+            width: 2px;
+            height: 2px;
+            background: white;
+            opacity: 0.8;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Modal Overlay */
+        #modalOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #modalOverlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Modal Contacto */
+        #contactModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000000; /* Fondo negro */
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #ff7d47; /* Contorno naranja */
+            z-index: 101;
+            width: 80%;
+            max-width: 600px;
+            color: #ffffff; /* Texto blanco para contraste */
+            box-shadow: 0 5px 15px rgba(255, 125, 71, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #contactModal.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #contactModal h2 {
+            margin-top: 0;
+            color: #ff7d47;
+            text-align: center;
+        }
+
+        /* Sección Acerca de */
+        .about-section {
+            margin: 50px auto;
+            max-width: 1000px;
+            padding: 0 20px;
+            text-align: left;
+            color: #ffffff;
+            z-index: 2;
+            position: relative;
+        }
+
+        .about-section h2 {
+            color: #ff7d47;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* Estilos para Redes Sociales en el Modal Contacto */
+        .social-links {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .social-links h3 {
+            color: #ff7d47;
+            margin-bottom: 10px;
+            text-align: left; /* Alineación a la izquierda */
+        }
+
+        .social-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .social-links li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links strong {
+            margin-right: 10px;
+            width: 80px; /* Ajusta según sea necesario para alinear */
+            text-align: left;
+        }
+
+        .social-links a {
+            color: #ff7d47;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff9a3d;
+        }
+
+        /* Botón de Cierre del Modal */
+        #contactModal .close-button {
+            padding: 10px;
+            background: #ff7d47;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #contactModal .close-button:hover {
+            background: #ff9a3d;
+        }
+
+        /* Menú responsive */
+        @media (max-width: 768px) {
+            .particle, .star {
+                display: none;
+            }
+            .channel {
+                width: 45%;
+            }
+            iframe {
+                height: 400px;
+            }
+            .hamburger {
+                display: flex;
+            }
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                width: 100%;
+                transition: left 0.3s ease;
+                padding: 20px 0;
+            }
+            nav.active {
+                left: 0;
+            }
+            nav a {
+                margin: 10px 0;
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .channel {
+                width: 90%;
+            }
+            iframe {
+                height: 300px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            nav a {
+                margin: 0 10px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>FutRatLibre</h1>
+        <nav id="navbar">
+            <a onclick="showContact()">Contacto</a>
+        </nav>
+        <!-- Menú hamburguesa para móviles -->
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <div class="button-container" id="canales">
+        <div class="channel">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN">
+            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=espn')">Ver ESPN</button>
+        </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/images-removebg-preview.png" alt="Movistar" loading="lazy">
+            <button onclick="loadStream('https://streamtp2.com/global2.php?stream=movistarlaliga')">Ver Movistar</button>
+        </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports" loading="lazy">
+            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=dsports')">Ver DSports</button>
+        </div>
+        <!-- Nuevo canal TNT Sports con imagen actualizada -->
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/50254_750-removebg-preview.png" alt="TNT Sports" loading="lazy">
+            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=tntsports')">Ver TNT Sports</button>
+        </div>
+    </div>
+
+    <!-- Separador decorativo -->
+    <div class="decorative-separator"></div>
+
+    <div class="video-container" id="inicio">
+        <iframe id="player" src="" allowfullscreen></iframe>
+    </div>
+
+    <!-- Sección Acerca de -->
+    <div class="about-section" id="acerca">
+        <h2>Acerca de FutRatLibre</h2>
+        <p>FutRatLibre es tu plataforma preferida para ver en vivo los mejores canales deportivos. Nos dedicamos a proporcionarte acceso fácil y rápido a una variedad de canales de deportes, asegurando que nunca te pierdas ningún evento importante.</p>
+        <p>Nuestro objetivo es ofrecer una experiencia de visualización sin interrupciones, con una interfaz amigable y accesible desde cualquier dispositivo. Ya sea que seas fanático del fútbol, baloncesto, tenis o cualquier otro deporte, FutRatLibre tiene algo para ti.</p>
+        <p>Además de los canales en vivo, ofrecemos contenido adicional como resúmenes, análisis y noticias deportivas para mantenerte informado sobre todo lo que sucede en el mundo del deporte.</p>
+    </div>
+
+    <footer>
+        <p>© 2024 FutRatLibre. Todos los derechos reservados.</p>
+        <p>
+            <a href="#">Política de privacidad</a> | 
+            <a href="#">Términos de uso</a>
+        </p>
+        <!-- Iconos de redes sociales -->
+        <div class="social-icons">
+            <a href="https://instagram.com/21rata130_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@21rata130" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://discord.com/users/21rata130_" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/21rata130ofc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay"></div>
+
+    <!-- Modal Contacto -->
+    <div id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <h2 id="contactModalTitle">Contacto</h2>
+        <div class="social-links">
+            <h3>Mis Redes Sociales</h3>
+            <ul>
+                <li>
+                    <strong>Instagram:</strong>
+                    <a href="https://instagram.com/21rata130_" target="_blank" rel="noopener noreferrer">21rata130_</a>
+                </li>
+                <li>
+                    <strong>TikTok:</strong>
+                    <a href="https://tiktok.com/@21rata130" target="_blank" rel="noopener noreferrer">21rata130</a>
+                </li>
+                <li>
+                    <strong>Discord:</strong>
+                    <a href="https://discord.com/users/21rata130_" target="_blank" rel="noopener noreferrer">21rata130_</a>
+                </li>
+                <li>
+                    <strong>GitHub:</strong>
+                    <a href="https://github.com/21rata130ofc" target="_blank" rel="noopener noreferrer">21rata130ofc</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Información adicional -->
+        <div class="additional-info">
+            <h3>Contacto Alternativo</h3>
+            <p>Si deseas ponerte en contacto con nosotros, puedes hacerlo a través de nuestras redes sociales mencionadas arriba. Estamos siempre disponibles para responder a tus preguntas y comentarios.</p>
+            <p>También puedes unirte a nuestro servidor de Discord para interactuar directamente con la comunidad y el equipo de FutRatLibre.</p>
+        </div>
+        <button type="button" class="close-button" onclick="hideContact()">Cerrar</button>
+    </div>
+
+    <script>
+        // Función para mostrar el modal de contacto
+        function showContact() {
+            document.getElementById('contactModal').classList.add('active');
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        // Función para ocultar el modal de contacto
+        function hideContact() {
+            document.getElementById('contactModal').classList.remove('active');
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        // Función para cargar el stream en el iframe
+        function loadStream(url) {
+            const player = document.getElementById('player');
+            player.src = url;
+            // Scroll suave hacia el iframe
+            player.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Crear partículas
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            particle.style.animationDuration = `${Math.random() * 4 + 3}s`;
+            document.body.appendChild(particle);
+        }
+
+        // Crear estrellas adicionales
+        for (let i = 0; i < 30; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            document.body.appendChild(star);
+        }
+
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navbar = document.getElementById('navbar');
+
+        hamburger.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Cerrar el menú cuando se hace clic en un enlace
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navbar.classList.contains('active')) {
+                    navbar.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hidden');
+        });
+    </script>
+</body>  
+</html>
+
