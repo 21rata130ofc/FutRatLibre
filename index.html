@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FutRatLibre</title>
-    <!-- Enlace a Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pM8YkpE+YQlkR4D0JeFOgFyHafG+VVUJ+Rj5khKxI4A3TgfAVoCqZ59k5HjgIp/bFeHO9+IhLgFIfHCiK7pYKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Google Fonts para tipografía mejorada -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset de márgenes y paddings */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Preloader */
+
         #preloader {
             position: fixed;
             top: 0;
@@ -58,7 +56,7 @@
             padding: 0;
             overflow-x: hidden;
             position: relative;
-            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto; /* Cursor personalizado */
+            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto; 
             transition: background 0.5s ease;
         }
 
@@ -79,7 +77,7 @@
             font-size: 2.5em;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 3px 3px 15px rgba(255, 125, 71, 0.6); /* Resplandor mejorado */
+            text-shadow: 3px 3px 15px rgba(255, 125, 71, 0.6); 
             animation: glow 2s ease-in-out infinite alternate;
         }
 
@@ -95,7 +93,7 @@
         nav {
             margin-top: 10px;
             display: flex;
-            justify-content: center; /* Centrar los elementos del nav */
+            justify-content: center; 
             align-items: center;
         }
 
@@ -123,7 +121,6 @@
             width: 100%;
         }
 
-        /* Menú hamburguesa */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -139,9 +136,9 @@
             transition: all 0.3s ease;
         }
 
-        /* Contenedor de botones */
+
         .button-container {
-            margin: 120px 20px 40px 20px; /* Ajustado para el header fijo */
+            margin: 120px 20px 40px 20px; 
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -229,7 +226,6 @@
             background: linear-gradient(135deg, #ff9a3d, #ffb55d);
         }
 
-        /* Separador decorativo */
         .decorative-separator {
             width: 80%;
             height: 2px;
@@ -259,7 +255,7 @@
             transform: skewX(20deg);
         }
 
-        /* Contenedor del video */
+
         .video-container {
             margin: 50px auto;
             position: relative;
@@ -317,7 +313,7 @@
             width: 100%;
         }
 
-        /* Iconos de redes sociales en el footer */
+  
         .social-icons {
             margin-top: 10px;
         }
@@ -334,7 +330,7 @@
             transform: scale(1.2);
         }
 
-        /* Partículas y estrellas */
+    
         .particle, .star {
             position: absolute;
             border-radius: 50%;
@@ -363,7 +359,7 @@
             }
         }
 
-        /* Nueva animación de estrellas */
+
         .star {
             width: 2px;
             height: 2px;
@@ -377,7 +373,7 @@
             50% { opacity: 0.3; }
         }
 
-        /* Modal Overlay */
+
         #modalOverlay {
             display: none;
             position: fixed;
@@ -396,21 +392,20 @@
             opacity: 1;
         }
 
-        /* Modal Contacto */
         #contactModal {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #000000; /* Fondo negro */
+            background: #000000; 
             padding: 30px;
             border-radius: 10px;
-            border: 2px solid #ff7d47; /* Contorno naranja */
+            border: 2px solid #ff7d47; 
             z-index: 101;
             width: 80%;
             max-width: 600px;
-            color: #ffffff; /* Texto blanco para contraste */
+            color: #ffffff; 
             box-shadow: 0 5px 15px rgba(255, 125, 71, 0.5);
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -428,7 +423,7 @@
             text-align: center;
         }
 
-        /* Sección Acerca de */
+  
         .about-section {
             margin: 50px auto;
             max-width: 1000px;
@@ -452,7 +447,6 @@
             line-height: 1.6;
         }
 
-        /* Estilos para Redes Sociales en el Modal Contacto */
         .social-links {
             margin-top: 20px;
             text-align: left;
@@ -461,7 +455,7 @@
         .social-links h3 {
             color: #ff7d47;
             margin-bottom: 10px;
-            text-align: left; /* Alineación a la izquierda */
+            text-align: left; 
         }
 
         .social-links ul {
@@ -478,7 +472,7 @@
 
         .social-links strong {
             margin-right: 10px;
-            width: 80px; /* Ajusta según sea necesario para alinear */
+            width: 80px; 
             text-align: left;
         }
 
@@ -493,7 +487,6 @@
             color: #ff9a3d;
         }
 
-        /* Botón de Cierre del Modal */
         #contactModal .close-button {
             padding: 10px;
             background: #ff7d47;
@@ -511,7 +504,6 @@
             background: #ff9a3d;
         }
 
-        /* Menú responsive */
         @media (max-width: 768px) {
             .particle, .star {
                 display: none;
@@ -562,7 +554,7 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
+
     <div id="preloader">
         <div class="spinner"></div>
     </div>
@@ -572,7 +564,7 @@
         <nav id="navbar">
             <a onclick="showContact()">Contacto</a>
         </nav>
-        <!-- Menú hamburguesa para móviles -->
+     
         <div class="hamburger" id="hamburger">
             <div></div>
             <div></div>
@@ -593,21 +585,40 @@
             <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports" loading="lazy">
             <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=dsports')">Ver DSports</button>
         </div>
-        <!-- Nuevo canal TNT Sports con imagen actualizada -->
         <div class="channel">
             <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/50254_750-removebg-preview.png" alt="TNT Sports" loading="lazy">
             <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=tntsports')">Ver TNT Sports</button>
         </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LaLiga_Hypermotion_2023_Vertical_Logo.svg-removebg-preview.png" alt="Laliga2" loading="lazy">
+            <button onclick="loadStream('https://www.capoplayer.net/play/laliga1a.php')">Ver Laliga2</button>
+        </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Serie_A.svg-removebg-preview.png" alt="Serie A" loading="lazy">
+            <button onclick="loadStream('https://streamtp2.com/global2.php?stream=starplus14')">Ver Serie A</button>
+        </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Premier-League-Logo-removebg-preview.png" alt="Premier League" loading="lazy">
+            <button onclick="loadStream('https://www.capoplayer.net/play/premier2.php')">Ver Premier League</button>
+        </div>
+        <div class="channel">
+            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/channels4_profile.jpg" alt="Premier League" loading="lazy">
+            <button onclick="loadStream('https://www.capoplayer.net/play/canal37.php')">Ver BundesLiga</button>
+        </div>
     </div>
+    
+    
+    
+    
+    
+    
 
-    <!-- Separador decorativo -->
     <div class="decorative-separator"></div>
 
     <div class="video-container" id="inicio">
         <iframe id="player" src="" allowfullscreen></iframe>
     </div>
 
-    <!-- Sección Acerca de -->
     <div class="about-section" id="acerca">
         <h2>Acerca de FutRatLibre</h2>
         <p>FutRatLibre es tu plataforma preferida para ver en vivo los mejores canales deportivos. Nos dedicamos a proporcionarte acceso fácil y rápido a una variedad de canales de deportes, asegurando que nunca te pierdas ningún evento importante.</p>
@@ -621,7 +632,6 @@
             <a href="#">Política de privacidad</a> | 
             <a href="#">Términos de uso</a>
         </p>
-        <!-- Iconos de redes sociales -->
         <div class="social-icons">
             <a href="https://instagram.com/21rata130_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://tiktok.com/@21rata130" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -630,10 +640,8 @@
         </div>
     </footer>
 
-    <!-- Modal Overlay -->
     <div id="modalOverlay"></div>
 
-    <!-- Modal Contacto -->
     <div id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
         <h2 id="contactModalTitle">Contacto</h2>
         <div class="social-links">
@@ -657,7 +665,6 @@
                 </li>
             </ul>
         </div>
-        <!-- Información adicional -->
         <div class="additional-info">
             <h3>Contacto Alternativo</h3>
             <p>Si deseas ponerte en contacto con nosotros, puedes hacerlo a través de nuestras redes sociales mencionadas arriba. Estamos siempre disponibles para responder a tus preguntas y comentarios.</p>
@@ -667,27 +674,22 @@
     </div>
 
     <script>
-        // Función para mostrar el modal de contacto
         function showContact() {
             document.getElementById('contactModal').classList.add('active');
             document.getElementById('modalOverlay').classList.add('active');
         }
 
-        // Función para ocultar el modal de contacto
         function hideContact() {
             document.getElementById('contactModal').classList.remove('active');
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        // Función para cargar el stream en el iframe
         function loadStream(url) {
             const player = document.getElementById('player');
             player.src = url;
-            // Scroll suave hacia el iframe
             player.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Crear partículas
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -697,7 +699,6 @@
             document.body.appendChild(particle);
         }
 
-        // Crear estrellas adicionales
         for (let i = 0; i < 30; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -708,8 +709,6 @@
             star.style.height = star.style.width;
             document.body.appendChild(star);
         }
-
-        // Menú hamburguesa
         const hamburger = document.getElementById('hamburger');
         const navbar = document.getElementById('navbar');
 
@@ -718,7 +717,6 @@
             hamburger.classList.toggle('active');
         });
 
-        // Cerrar el menú cuando se hace clic en un enlace
         const navLinks = navbar.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -729,7 +727,6 @@
             });
         });
 
-        // Preloader
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.classList.add('hidden');
@@ -737,4 +734,6 @@
     </script>
 </body>  
 </html>
+
+
 
