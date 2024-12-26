@@ -6,6 +6,8 @@
     <title>FutRatLibre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pM8YkpE+YQlkR4D0JeFOgFyHafG+VVUJ+Rj5khKxI4A3TgfAVoCqZ59k5HjgIp/bFeHO9+IhLgFIfHCiK7pYKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animate.css para animaciones predefinidas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
 
         * {
@@ -69,6 +71,30 @@
             top: 0;
             left: 0;
             z-index: 1000;
+            overflow: hidden; /* Para el efecto de brillo */
+        }
+
+        /* Efecto de brillo en el header */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 125, 71, 0.3), rgba(255, 154, 61, 0.3));
+            mix-blend-mode: overlay;
+            animation: headerGlow 5s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes headerGlow {
+            from {
+                opacity: 0.3;
+            }
+            to {
+                opacity: 0.6;
+            }
         }
 
         h1 {
@@ -182,18 +208,23 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
         }
 
+        /* Efecto parallax en imágenes de canales */
         .channel img {
             width: 100%;
             height: 80px;
             object-fit: contain;
             margin-bottom: 15px;
             transition: transform 0.3s;
+            will-change: transform;
         }
 
-        .channel:hover img {
-            transform: rotate(10deg);
+        @media (min-width: 769px) {
+            .channel:hover img {
+                transform: scale(1.1) translateY(-10px);
+            }
         }
 
+        /* Botones con efecto neón */
         .channel button {
             padding: 10px 20px;
             font-size: 16px;
@@ -205,6 +236,30 @@
             transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .channel button:hover::before {
+            opacity: 1;
+        }
+
+        .channel button:hover {
+            background: linear-gradient(135deg, #ff9a3d, #ffb55d);
+            box-shadow: 0 8px 20px rgba(255, 154, 61, 0.7);
         }
 
         @keyframes pulse {
@@ -220,10 +275,6 @@
                 transform: scale(1);
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-        }
-
-        .channel button:hover {
-            background: linear-gradient(135deg, #ff9a3d, #ffb55d);
         }
 
         .decorative-separator {
@@ -262,6 +313,14 @@
             z-index: 2;
             max-width: 1100px;
             padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .video-container.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         iframe {
@@ -286,6 +345,14 @@
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         footer p {
@@ -313,7 +380,6 @@
             width: 100%;
         }
 
-  
         .social-icons {
             margin-top: 10px;
         }
@@ -323,6 +389,26 @@
             margin: 0 10px;
             font-size: 1.5em;
             transition: color 0.3s, transform 0.3s;
+            position: relative;
+            display: inline-block;
+        }
+
+        .social-icons a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 2px solid #ff7d47;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover::after {
+            opacity: 1;
+            transform: scale(1.2);
         }
 
         .social-icons a:hover {
@@ -330,7 +416,6 @@
             transform: scale(1.2);
         }
 
-    
         .particle, .star {
             position: absolute;
             border-radius: 50%;
@@ -432,6 +517,14 @@
             color: #ffffff;
             z-index: 2;
             position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .about-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .about-section h2 {
@@ -570,16 +663,120 @@
                 font-size: 1em;
             }
         }
+
+        /* Fondo animado con ondas */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+            z-index: 0;
+        }
+
+        .waves {
+            position: relative;
+            display: block;
+            width: calc(200% + 1.3px);
+            height: 100px;
+        }
+
+        .parallax > use {
+            animation: moveWaves 10s linear infinite;
+        }
+
+        .parallax > use:nth-child(1) {
+            animation-delay: 0s;
+            animation-duration: 7s;
+        }
+
+        .parallax > use:nth-child(2) {
+            animation-delay: -2s;
+            animation-duration: 10s;
+        }
+
+        .parallax > use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+
+        @keyframes moveWaves {
+            0% {
+                transform: translate3d(-90px, 0, 0);
+            }
+            100% {
+                transform: translate3d(85px, 0, 0);
+            }
+        }
+
+        /* Botón "Volver Arriba" */
+        #backToTop {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 100;
+            background-color: #ff7d47;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, transform 0.3s;
+            display: none;
+        }
+
+        #backToTop:hover {
+            background-color: #ff9a3d;
+            transform: scale(1.1);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fondo de partículas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Fondo de Partículas -->
+    <div id="particles-js"></div>
+
+    <!-- Fondo animado con ondas -->
+    <div class="wave-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+            </defs>
+            <g class="parallax">
+                <use href="#wave-path" x="48" y="0" fill="rgba(255, 125, 71, 0.7)" />
+                <use href="#wave-path" x="48" y="3" fill="rgba(255, 154, 61, 0.5)" />
+                <use href="#wave-path" x="48" y="5" fill="rgba(255, 181, 93, 0.3)" />
+            </g>
+        </svg>
+    </div>
 
     <div id="preloader">
         <div class="spinner"></div>
     </div>
 
     <header>
-        <h1>FutRatLibre</h1>
+        <h1 class="animate__animated animate__pulse">FutRatLibre</h1>
         <nav id="navbar">
             <a onclick="showContact()">Contacto</a>
         </nav>
@@ -630,19 +827,14 @@
             <button onclick="loadStream('https://www.capoplayer.net/play/canal2.php')">Ver DAZN</button>
         </div>
     </div>
-    
-    
-    
-    
-    
 
     <div class="decorative-separator"></div>
 
-    <div class="video-container" id="inicio">
+    <div class="video-container section" id="inicio">
         <iframe id="player" src="" allowfullscreen></iframe>
     </div>
 
-    <div class="about-section" id="acerca">
+    <div class="about-section section" id="acerca">
         <h2 style="text-align: center; font-size: 2.5em; color: #ff7d47; text-transform: uppercase; margin-bottom: 20px;">ACERCA DE FUTRATLIBRE</h2>
         <p>FutRatLibre es tu plataforma ideal para disfrutar en vivo de los mejores canales deportivos dedicados exclusivamente al fútbol. Te ofrecemos acceso rápido y sencillo para que nunca te pierdas los partidos más importantes.</p>
         <p>Nuestro objetivo es garantizar una experiencia de visualización fluida desde cualquier dispositivo, con una interfaz amigable y fácil de usar.</p>
@@ -652,7 +844,6 @@
         <p>Para acceder a algunos de nuestros canales, es necesario utilizar una VPN. Recomendamos utilizar la extensión <strong>Urban VPN</strong> configurada hacia la dirección Argentina para garantizar una mejor experiencia de visualización y evitar restricciones geográficas. Sin embargo, para otros canales, el uso de una VPN no es necesario.</p>
         <p>Si encuentras que no puedes acceder a ciertos canales, te sugerimos activar la VPN siguiendo estos pasos:</p>
         <ol>
-        
             <li>Instala la extensión <a href="https://urban-vpn.com/" target="_blank" rel="noopener noreferrer">Urban VPN</a> en tu navegador.</li>
             <li>Configura la VPN hacia la ubicación Argentina.</li>
             <li>Recarga la página de FutRatLibre y selecciona el canal deseado.</li>
@@ -660,12 +851,11 @@
         <h3 style="text-align: center; font-size: 2em; color: #ff7d47; text-transform: uppercase; margin-top: 30px;">CANALES CAÍDOS</h3>
         <p>Es importante mencionar que, si algunos canales están caídos o no cargan, podría deberse a que actualmente no hay partidos en disputa para esa liga o canal. Te recomendamos volver a intentarlo más tarde cuando haya eventos deportivos programados.</p>
         <p>Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos a través de nuestra sección de <a href="#" onclick="showContact()">Contacto</a>.</p>
-        
-    
+    </div>
 
-        <footer style="background: #000000; color: #bbbbbb; padding: 40px 20px; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);">
-            <p style="text-align: center; font-size: 14px; margin-bottom: 20px;">
-                © 2024 FutRatLibre. Todos los derechos reservados. Este sitio web y sus contenidos
+    <footer class="section">
+        <p style="text-align: center; font-size: 14px; margin-bottom: 20px;">
+            © 2024 FutRatLibre. Todos los derechos reservados. Este sitio web y sus contenidos
         </p>
         <div class="social-icons">
             <a href="https://instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -708,6 +898,11 @@
         <button type="button" class="close-button" onclick="hideContact()">Cerrar</button>
     </div>
 
+    <!-- Botón "Volver Arriba" -->
+    <button id="backToTop" title="Volver Arriba"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Scripts al final del body -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         function showContact() {
             document.getElementById('contactModal').classList.add('active');
@@ -725,6 +920,7 @@
             player.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Generar partículas y estrellas
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -744,6 +940,7 @@
             star.style.height = star.style.width;
             document.body.appendChild(star);
         }
+
         const hamburger = document.getElementById('hamburger');
         const navbar = document.getElementById('navbar');
 
@@ -762,11 +959,123 @@
             });
         });
 
+        // Preloader al cargar la página
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.classList.add('hidden');
         });
+
+        // Botón "Volver Arriba"
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Animación de entrada para las secciones
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Particles.js configuración
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 700
+                    }
+                },
+                "color": {
+                    "value": "#ff7d47"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.7,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 0.5,
+                        "opacity_min": 0.3,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
     </script>
 </body>  
 </html>
-
