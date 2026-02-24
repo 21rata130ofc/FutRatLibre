@@ -6,757 +6,341 @@
     <title>FutRatLibre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pM8YkpE+YQlkR4D0JeFOgFyHafG+VVUJ+Rj5khKxI4A3TgfAVoCqZ59k5HjgIp/bFeHO9+IhLgFIfHCiK7pYKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Animate.css para animaciones predefinidas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #16213e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #16213e; display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s;
         }
-
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
+        #preloader.hidden { opacity: 0; visibility: hidden; }
         .spinner {
-            border: 8px solid rgba(255, 255, 255, 0.1);
-            border-top: 8px solid #ff7d47;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
+            border: 8px solid rgba(255,255,255,0.1); border-top: 8px solid #ff7d47;
+            border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
+            font-family: 'Roboto', sans-serif; text-align: center;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            color: #ffffff; margin: 0; padding: 0; overflow-x: hidden;
             position: relative;
-            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto; 
+            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto;
             transition: background 0.5s ease;
         }
 
         header {
-            padding: 20px 0;
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            overflow: hidden; /* Para el efecto de brillo */
+            padding: 20px 0; background: rgba(0,0,0,0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; overflow: hidden;
         }
-
-        /* Efecto de brillo en el header */
         header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 125, 71, 0.3), rgba(255, 154, 61, 0.3));
-            mix-blend-mode: overlay;
-            animation: headerGlow 5s infinite alternate;
-            pointer-events: none;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(255,125,71,0.3), rgba(255,154,61,0.3));
+            mix-blend-mode: overlay; animation: headerGlow 5s infinite alternate; pointer-events: none;
         }
-
-        @keyframes headerGlow {
-            from {
-                opacity: 0.3;
-            }
-            to {
-                opacity: 0.6;
-            }
-        }
+        @keyframes headerGlow { from { opacity: 0.3; } to { opacity: 0.6; } }
 
         h1 {
-            margin: 0;
-            color: #ff7d47;
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 3px 3px 15px rgba(255, 125, 71, 0.6); 
-            animation: glow 2s ease-in-out infinite alternate;
+            margin: 0; color: #ff7d47; font-size: 2.5em; text-transform: uppercase;
+            letter-spacing: 3px; animation: glow 2s ease-in-out infinite alternate;
         }
-
         @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #ff7d47, 0 0 20px #ff7d47, 0 0 30px #ff7d47;
-            }
-            to {
-                text-shadow: 0 0 20px #ff9a3d, 0 0 30px #ff9a3d, 0 0 40px #ff9a3d;
-            }
+            from { text-shadow: 0 0 10px #ff7d47, 0 0 20px #ff7d47, 0 0 30px #ff7d47; }
+            to   { text-shadow: 0 0 20px #ff9a3d, 0 0 30px #ff9a3d, 0 0 40px #ff9a3d; }
         }
 
-        nav {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-        }
-
+        nav { margin-top: 10px; display: flex; justify-content: center; align-items: center; }
         nav a {
-            color: #ff7d47;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1em;
-            transition: color 0.3s;
-            cursor: pointer;
-            position: relative;
+            color: #ff7d47; text-decoration: none; margin: 0 15px; font-size: 1em;
+            transition: color 0.3s; cursor: pointer; position: relative;
         }
+        nav a::after { content: ''; display: block; width: 0; height: 2px; background: #ff9a3d; transition: width .3s; margin: auto; }
+        nav a:hover::after { width: 100%; }
 
-        nav a::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: #ff9a3d;
-            transition: width .3s;
-            margin: auto;
-        }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; margin-left: 20px; }
+        .hamburger div { width: 25px; height: 3px; background-color: #ff7d47; margin: 4px 0; transition: all 0.3s ease; }
 
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #ff7d47;
-            margin: 4px 0;
-            transition: all 0.3s ease;
-        }
-
-
-        .button-container {
-            margin: 120px 20px 40px 20px; 
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .channel {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            width: 180px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .channel::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, #ff7d47, #ff9a3d);
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .channel:hover::before {
-            opacity: 0.2;
-        }
-
-        .channel:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Efecto parallax en imágenes de canales */
-        .channel img {
-            width: 100%;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 15px;
-            transition: transform 0.3s;
-            will-change: transform;
-        }
-
-        @media (min-width: 769px) {
-            .channel:hover img {
-                transform: scale(1.1) translateY(-10px);
-            }
-        }
-
-        /* Botones con efecto neón */
-        .channel button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .channel button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(45deg);
-            transition: opacity 0.3s;
-            opacity: 0;
-        }
-
-        .channel button:hover::before {
-            opacity: 1;
-        }
-
-        .channel button:hover {
-            background: linear-gradient(135deg, #ff9a3d, #ffb55d);
-            box-shadow: 0 8px 20px rgba(255, 154, 61, 0.7);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            }
-        }
-
+        /* ===== SEPARADOR ===== */
         .decorative-separator {
-            width: 80%;
-            height: 2px;
-            background: #ff7d47;
-            margin: 40px auto;
-            position: relative;
-            overflow: hidden;
+            width: 80%; height: 2px; background: #ff7d47;
+            margin: 40px auto; position: relative; overflow: hidden;
         }
-
-        .decorative-separator::before,
-        .decorative-separator::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff7d47, #ff9a3d);
-            top: 0;
+        .decorative-separator::before, .decorative-separator::after {
+            content: ''; position: absolute; width: 50%; height: 100%;
+            background: linear-gradient(45deg, #ff7d47, #ff9a3d); top: 0;
         }
+        .decorative-separator::before { left: 0; transform: skewX(-20deg); }
+        .decorative-separator::after  { right: 0; transform: skewX(20deg); }
 
-        .decorative-separator::before {
-            left: 0;
-            transform: skewX(-20deg);
-        }
-
-        .decorative-separator::after {
-            right: 0;
-            transform: skewX(20deg);
-        }
-
-
-        .video-container {
-            margin: 50px auto;
-            position: relative;
-            z-index: 2;
+        /* ===== AGENDA ===== */
+        .agenda-section {
+            margin: 110px auto 0 auto;
             max-width: 1100px;
             padding: 0 20px;
-            opacity: 0;
-            transform: translateY(20px);
+            position: relative; z-index: 2;
+            opacity: 0; transform: translateY(20px);
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
+        .agenda-section.visible { opacity: 1; transform: translateY(0); }
 
-        .video-container.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .agenda-header {
+            display: flex; align-items: center; justify-content: center;
+            gap: 14px; margin-bottom: 22px;
         }
+        .agenda-header h2 {
+            color: #ff7d47; font-size: 2em; text-transform: uppercase;
+            letter-spacing: 3px; text-shadow: 0 0 15px rgba(255,125,71,0.5);
+        }
+        .agenda-header .live-badge {
+            background: #e74c3c; color: #fff; font-size: 0.7em; font-weight: 700;
+            padding: 4px 10px; border-radius: 20px; letter-spacing: 2px;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-            background: #000;
+        .agenda-iframe-wrapper {
+            position: relative; width: 100%; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 0 40px rgba(255,125,71,0.25), 0 12px 30px rgba(0,0,0,0.6);
+            border: 1.5px solid rgba(255,125,71,0.35); background: #000;
+        }
+        .agenda-iframe-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, #ff7d47, #ff9a3d, transparent);
+            z-index: 10; animation: scanLine 3s linear infinite;
+        }
+        @keyframes scanLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .agenda-iframe-wrapper iframe {
+            width: 100%; height: 600px; border: none; border-radius: 20px;
+            background: #000; display: block;
+        }
+        .agenda-reload-btn {
+            margin-top: 14px; padding: 10px 26px; background: transparent;
+            color: #ff7d47; border: 1.5px solid #ff7d47; border-radius: 30px;
+            font-size: 0.9em; cursor: pointer; letter-spacing: 1px;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .agenda-reload-btn:hover { background: #ff7d47; color: #fff; box-shadow: 0 0 20px rgba(255,125,71,0.5); }
+        .agenda-reload-btn i { margin-right: 6px; }
+
+        /* ===== REPRODUCTOR ===== */
+        .video-container {
+            margin: 50px auto; position: relative; z-index: 2;
+            max-width: 1100px; padding: 0 20px;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .video-container.visible { opacity: 1; transform: translateY(0); }
+        iframe.player-iframe {
+            width: 100%; height: 600px; border: none; border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5); background: #000;
             transition: transform 0.3s ease;
         }
+        iframe.player-iframe:hover { transform: scale(1.02); }
 
-        iframe:hover {
-            transform: scale(1.02);
+        /* ===== TABS POR PAÍS ===== */
+        .pais-tabs {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 10px; margin-bottom: 30px;
         }
+        .pais-btn {
+            padding: 10px 22px; background: rgba(255,255,255,0.05);
+            color: #aaa; border: 1.5px solid rgba(255,255,255,0.1);
+            border-radius: 30px; font-size: 0.95em; font-weight: 700;
+            cursor: pointer; letter-spacing: 0.5px; font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .pais-btn:hover { color: #ff7d47; border-color: #ff7d47; background: rgba(255,125,71,0.08); }
+        .pais-btn.active {
+            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
+            color: #fff; border-color: transparent;
+            box-shadow: 0 4px 16px rgba(255,125,71,0.4);
+        }
+        .pais-panel { display: none; }
+        .pais-panel.active { display: block; animation: fadeInUp 0.4s ease; }
+        @keyframes fadeInUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
 
-        footer {
-            padding: 30px 20px;
-            background: #10101a;
-            color: #bbbbbb;
-            font-size: 14px;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        /* ===== CANALES GRID ===== */
+        .canales-section {
+            margin: 0 auto 50px auto;
+            max-width: 1200px;
+            padding: 0 20px;
             position: relative;
             z-index: 2;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; transform: translateY(20px);
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
-
-        footer.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .canales-section.visible { opacity: 1; transform: translateY(0); }
+        .canales-section h2 {
+            color: #ff7d47; font-size: 1.7em; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 28px;
+            text-shadow: 0 0 14px rgba(255,125,71,0.4);
+        }
+        .canales-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+        .canal-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 22px 14px 18px;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+            position: relative; overflow: hidden;
+        }
+        .canal-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #ff7d47, #ff9a3d);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .canal-card:hover::before { opacity: 1; }
+        .canal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.07);
+        }
+        .canal-logo-wrap {
+            width: 100%; height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px;
+        }
+        .canal-logo-wrap img {
+            max-width: 100%; max-height: 70px; object-fit: contain; transition: transform 0.3s;
+        }
+        .canal-card:hover .canal-logo-wrap img { transform: scale(1.08); }
+        .canal-name { font-weight: 700; font-size: 1em; color: #fff; text-align: center; }
+        .canal-desc { font-size: 0.78em; color: #aaa; text-align: center; line-height: 1.4; }
+        .canal-btn {
+            margin-top: 4px; padding: 9px 24px;
+            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
+            color: #fff; border: none; border-radius: 25px;
+            font-size: 0.9em; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: pulse 2.5s infinite;
+        }
+        .canal-btn:hover { transform: scale(1.06); box-shadow: 0 6px 20px rgba(255,125,71,0.6); animation: none; }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 4px 10px rgba(255,125,71,0.3); }
+            50%      { box-shadow: 0 6px 20px rgba(255,125,71,0.6); }
         }
 
-        footer p {
-            margin: 0 0 10px 0;
+        /* ===== ABOUT ===== */
+        .about-section {
+            margin: 50px auto; max-width: 1000px; padding: 0 20px; text-align: left;
+            color: #ffffff; z-index: 2; position: relative;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
+        .about-section.visible { opacity: 1; transform: translateY(0); }
+        .about-section h2 { color: #ff7d47; margin-bottom: 20px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+        .about-section p { margin-bottom: 15px; line-height: 1.6; }
+        .about-section h3 { color: #ff7d47; margin-top: 30px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .about-section ol { margin-left: 20px; margin-bottom: 15px; }
+        .about-section a { color: #ff7d47; text-decoration: underline; }
 
-        footer a {
-            color: #ff7d47;
-            text-decoration: none;
-            margin: 0 10px;
-            position: relative;
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 30px 20px; background: #10101a; color: #bbbbbb; font-size: 14px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5); position: relative; z-index: 2;
+            opacity: 0; transform: translateY(20px); transition: opacity 1s ease-out, transform 1s ease-out;
         }
-
-        footer a::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: #ff9a3d;
-            transition: width .3s;
-            margin: auto;
-        }
-
-        footer a:hover::after {
-            width: 100%;
-        }
-
-        .social-icons {
-            margin-top: 10px;
-        }
-
+        footer.visible { opacity: 1; transform: translateY(0); }
+        footer p { margin: 0 0 10px 0; }
+        footer a { color: #ff7d47; text-decoration: none; margin: 0 10px; position: relative; }
+        footer a::after { content: ''; display: block; width: 0; height: 2px; background: #ff9a3d; transition: width .3s; margin: auto; }
+        footer a:hover::after { width: 100%; }
+        .social-icons { margin-top: 10px; }
         .social-icons a {
-            color: #ff7d47;
-            margin: 0 10px;
-            font-size: 1.5em;
-            transition: color 0.3s, transform 0.3s;
-            position: relative;
-            display: inline-block;
+            color: #ff7d47; margin: 0 10px; font-size: 1.5em;
+            transition: color 0.3s, transform 0.3s; position: relative; display: inline-block;
         }
-
         .social-icons a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            border: 2px solid #ff7d47;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
+            content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            border: 2px solid #ff7d47; border-radius: 50%; opacity: 0; transition: opacity 0.3s, transform 0.3s;
         }
+        .social-icons a:hover::after { opacity: 1; transform: scale(1.2); }
+        .social-icons a:hover { color: #ff9a3d; transform: scale(1.2); }
 
-        .social-icons a:hover::after {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .social-icons a:hover {
-            color: #ff9a3d;
-            transform: scale(1.2);
-        }
-
-        .particle, .star {
-            position: absolute;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .particle {
-            width: 10px;
-            height: 10px;
-            background: linear-gradient(135deg, #ff7d47, #ff914d);
-            opacity: 0.7;
-            animation: move 6s infinite;
-        }
-
-        @keyframes move {
-            0% {
-                transform: translate(0, 0);
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translate(100vw, 100vh);
-                opacity: 0;
-            }
-        }
-
-
-        .star {
-            width: 2px;
-            height: 2px;
-            background: white;
-            opacity: 0.8;
-            animation: twinkle 5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.3; }
-        }
-
-
+        /* ===== MODAL ===== */
         #modalOverlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 100; opacity: 0; transition: opacity 0.3s ease;
         }
-
-        #modalOverlay.active {
-            display: block;
-            opacity: 1;
-        }
-
+        #modalOverlay.active { display: block; opacity: 1; }
         #contactModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #000000; 
-            padding: 30px;
-            border-radius: 10px;
-            border: 2px solid #ff7d47; 
-            z-index: 101;
-            width: 80%;
-            max-width: 600px;
-            color: #ffffff; 
-            box-shadow: 0 5px 15px rgba(255, 125, 71, 0.5);
-            opacity: 0;
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); background: #000000; padding: 30px;
+            border-radius: 10px; border: 2px solid #ff7d47; z-index: 101;
+            width: 80%; max-width: 600px; color: #ffffff;
+            box-shadow: 0 5px 15px rgba(255,125,71,0.5); opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-
-        #contactModal.active {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        #contactModal h2 {
-            margin-top: 0;
-            color: #ff7d47;
-            text-align: center;
-        }
-
-  
-        .about-section {
-            margin: 50px auto;
-            max-width: 1000px;
-            padding: 0 20px;
-            text-align: left;
-            color: #ffffff;
-            z-index: 2;
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-
-        .about-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-section h2 {
-            color: #ff7d47;
-            margin-bottom: 20px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .about-section p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        /* Nueva Subsección para Requisitos de VPN */
-        .about-section h3 {
-            color: #ff7d47;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .about-section ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .about-section a {
-            color: #ff7d47;
-            text-decoration: underline;
-        }
-
-        .social-links {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .social-links h3 {
-            color: #ff7d47;
-            margin-bottom: 10px;
-            text-align: left; 
-        }
-
-        .social-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .social-links li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .social-links strong {
-            margin-right: 10px;
-            width: 80px; 
-            text-align: left;
-        }
-
-        .social-links a {
-            color: #ff7d47;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #ff9a3d;
-        }
-
+        #contactModal.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        #contactModal h2 { margin-top: 0; color: #ff7d47; text-align: center; }
+        .social-links { margin-top: 20px; text-align: left; }
+        .social-links h3 { color: #ff7d47; margin-bottom: 10px; text-align: left; }
+        .social-links ul { list-style: none; padding: 0; margin: 0; }
+        .social-links li { margin-bottom: 15px; display: flex; align-items: center; }
+        .social-links strong { margin-right: 10px; width: 80px; text-align: left; }
+        .social-links a { color: #ff7d47; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        .social-links a:hover { color: #ff9a3d; }
         #contactModal .close-button {
-            padding: 10px;
-            background: #ff7d47;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s;
-            width: 100%;
-            margin-top: 20px;
+            padding: 10px; background: #ff7d47; color: #ffffff; border: none;
+            border-radius: 5px; cursor: pointer; font-size: 1em; width: 100%; margin-top: 20px;
         }
+        #contactModal .close-button:hover { background: #ff9a3d; }
 
-        #contactModal .close-button:hover {
-            background: #ff9a3d;
-        }
+        /* ===== PARTICLES ===== */
+        .particle, .star { position: absolute; border-radius: 50%; z-index: 1; }
+        .particle { width: 10px; height: 10px; background: linear-gradient(135deg, #ff7d47, #ff914d); opacity: 0.7; animation: move 6s infinite; }
+        @keyframes move { 0% { transform: translate(0,0); opacity: 0.7; } 50% { opacity: 0.4; } 100% { transform: translate(100vw,100vh); opacity: 0; } }
+        .star { width: 2px; height: 2px; background: white; opacity: 0.8; animation: twinkle 5s infinite; }
+        @keyframes twinkle { 0%,100% { opacity: 0.8; } 50% { opacity: 0.3; } }
 
-        @media (max-width: 768px) {
-            .particle, .star {
-                display: none;
-            }
-            .channel {
-                width: 45%;
-            }
-            iframe {
-                height: 400px;
-            }
-            .hamburger {
-                display: flex;
-            }
-            nav {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background: rgba(0, 0, 0, 0.9);
-                width: 100%;
-                transition: left 0.3s ease;
-                padding: 20px 0;
-            }
-            nav.active {
-                left: 0;
-            }
-            nav a {
-                margin: 10px 0;
-                font-size: 1.5em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .channel {
-                width: 90%;
-            }
-            iframe {
-                height: 300px;
-            }
-            h1 {
-                font-size: 2em;
-            }
-            nav a {
-                margin: 0 10px;
-                font-size: 1em;
-            }
-        }
-
-        /* Fondo animado con ondas */
-        .wave-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-            transform: rotate(180deg);
-            z-index: 0;
-        }
-
-        .waves {
-            position: relative;
-            display: block;
-            width: calc(200% + 1.3px);
-            height: 100px;
-        }
-
-        .parallax > use {
-            animation: moveWaves 10s linear infinite;
-        }
-
-        .parallax > use:nth-child(1) {
-            animation-delay: 0s;
-            animation-duration: 7s;
-        }
-
-        .parallax > use:nth-child(2) {
-            animation-delay: -2s;
-            animation-duration: 10s;
-        }
-
-        .parallax > use:nth-child(3) {
-            animation-delay: -4s;
-            animation-duration: 13s;
-        }
-
-        @keyframes moveWaves {
-            0% {
-                transform: translate3d(-90px, 0, 0);
-            }
-            100% {
-                transform: translate3d(85px, 0, 0);
-            }
-        }
-
-        /* Botón "Volver Arriba" */
         #backToTop {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 100;
-            background-color: #ff7d47;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: background-color 0.3s, transform 0.3s;
-            display: none;
+            position: fixed; bottom: 40px; right: 40px; z-index: 100;
+            background-color: #ff7d47; color: white; border: none; padding: 15px;
+            border-radius: 50%; cursor: pointer; font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background-color 0.3s, transform 0.3s; display: none;
         }
+        #backToTop:hover { background-color: #ff9a3d; transform: scale(1.1); }
 
-        #backToTop:hover {
-            background-color: #ff9a3d;
-            transform: scale(1.1);
+        .wave-container { position: absolute; bottom: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); z-index: 0; }
+        .waves { position: relative; display: block; width: calc(200% + 1.3px); height: 100px; }
+        .parallax > use { animation: moveWaves 10s linear infinite; }
+        .parallax > use:nth-child(1) { animation-delay: 0s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -2s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        @keyframes moveWaves { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
+        #particles-js { position: fixed; width: 100%; height: 100%; background-color: transparent; top: 0; left: 0; z-index: 0; }
+        html { scroll-behavior: smooth; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) { .canales-grid { grid-template-columns: repeat(3,1fr); } }
+        @media (max-width: 768px) {
+            .particle, .star { display: none; }
+            .canales-grid { grid-template-columns: repeat(2,1fr); }
+            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 400px; }
+            .hamburger { display: flex; }
+            nav { position: fixed; top: 70px; left: -100%; flex-direction: column; background: rgba(0,0,0,0.9); width: 100%; transition: left 0.3s ease; padding: 20px 0; }
+            nav.active { left: 0; }
+            nav a { margin: 10px 0; font-size: 1.5em; }
         }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        @media (max-width: 480px) {
+            .canales-grid { grid-template-columns: repeat(2,1fr); }
+            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 300px; }
+            h1 { font-size: 2em; }
         }
-
-        /* Fondo de partículas */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Fondo de Partículas -->
     <div id="particles-js"></div>
 
-    <!-- Fondo animado con ondas -->
     <div class="wave-container">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -771,76 +355,370 @@
         </svg>
     </div>
 
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
+    <div id="preloader"><div class="spinner"></div></div>
 
     <header>
         <h1 class="animate__animated animate__pulse">FutRatLibre</h1>
         <nav id="navbar">
-            <a onclick="showContact()">Contacto</a>
         </nav>
-     
         <div class="hamburger" id="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div></div><div></div><div></div>
         </div>
     </header>
-    <div class="button-container" id="canales">
-        <!-- Canales existentes -->
-        <div class="channel">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN">
-            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=espn')">Ver ESPN</button>
+
+    <!-- ===== 1. AGENDA DEL DÍA (ARRIBA) ===== -->
+    <div class="agenda-section section" id="agenda">
+        <div class="agenda-header">
+            <h2><i class="fas fa-calendar-alt" style="margin-right:10px;"></i>Agenda del Día</h2>
+            <span class="live-badge">● HOY</span>
         </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LL_RGB_h_color.png" alt="Movistar" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/laliga3.php')">Ver LaLiga</button>
+        <div class="agenda-iframe-wrapper">
+            <iframe
+                id="agendaFrame"
+                src="https://la14hd.com/eventos/"
+                allowfullscreen
+                loading="lazy"
+                title="Partidos de hoy"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+            ></iframe>
         </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports" loading="lazy">
-            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=dsports')">Ver DSports</button>
-        </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/50254_750-removebg-preview.png" alt="TNT Sports" loading="lazy">
-            <button onclick="loadStream('https://la12hd.com/vivo/canales.php?stream=tntsports')">Ver TNT Sports</button>
-        </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LaLiga_Hypermotion_2023_Vertical_Logo.svg-removebg-preview.png" alt="Laliga2" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/laliga1a.php')">Ver Laliga2</button>
-        </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Serie_A.svg-removebg-preview.png" alt="Serie A" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/seriea2.php')">Ver Serie A</button>
-        </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Premier-League-Logo-removebg-preview.png" alt="Premier League" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/premier2.php')">Ver Premier League</button>
-        </div>
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/channels4_profile.jpg" alt="BundesLiga" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/canal37.php')">Ver BundesLiga</button>
-        </div>
-        <!-- Nuevo Canal DAZN -->
-        <div class="channel">
-            <img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN" loading="lazy">
-            <button onclick="loadStream('https://www.capoplayer.net/play/canal2.php')">Ver DAZN</button>
-        </div>
+        <button class="agenda-reload-btn" onclick="reloadAgenda()">
+            <i class="fas fa-sync-alt"></i> Actualizar agenda
+        </button>
     </div>
 
     <div class="decorative-separator"></div>
 
-    <div class="video-container section" id="inicio">
-        <iframe id="player" src="" allowfullscreen></iframe>
+    <!-- ===== 2. CANALES POR PAÍS ===== -->
+    <div class="canales-section section" id="canales">
+        <h2><i class="fas fa-tv" style="margin-right:10px;"></i>Ver Canales en Vivo y en Directo</h2>
+
+        <!-- Botones de país -->
+        <div class="pais-tabs">
+            <button class="pais-btn active" onclick="showPais('espana')">🇪🇸 España</button>
+            <button class="pais-btn" onclick="showPais('inglaterra')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</button>
+            <button class="pais-btn" onclick="showPais('alemania')">🇩🇪 Alemania</button>
+            <button class="pais-btn" onclick="showPais('italia')">🇮🇹 Italia</button>
+            <button class="pais-btn" onclick="showPais('latam')">🌎 Latam</button>
+        </div>
+
+        <!-- España -->
+        <div class="pais-panel active" id="pais-espana">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LL_RGB_h_color.png" alt="LaLiga" loading="lazy"></div>
+                    <div class="canal-name">LaLiga</div>
+                    <div class="canal-desc">Ver LaLiga online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('laliga')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LaLiga_Hypermotion_2023_Vertical_Logo.svg-removebg-preview.png" alt="LaLiga 2" loading="lazy"></div>
+                    <div class="canal-name">LaLiga 2</div>
+                    <div class="canal-desc">Ver LaLiga 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('laliga2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Movistar Liga de Campeones" loading="lazy"></div>
+                    <div class="canal-name">Movistar Liga de Campeones</div>
+                    <div class="canal-desc">Ver Movistar Liga de Campeones en vivo.</div>
+                    <button class="canal-btn" onclick="loadStream('movistarLC')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN" loading="lazy"></div>
+                    <div class="canal-name">DAZN</div>
+                    <div class="canal-desc">Ver DAZN online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dazn')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 2" loading="lazy"></div>
+                    <div class="canal-name">DAZN 2</div>
+                    <div class="canal-desc">Ver DAZN 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dazn2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 3" loading="lazy"></div>
+                    <div class="canal-name">DAZN 3 (Eventos)</div>
+                    <div class="canal-desc">Ver DAZN 3 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dazn3')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 4" loading="lazy"></div>
+                    <div class="canal-name">DAZN 4 (Eventos)</div>
+                    <div class="canal-desc">Ver DAZN 4 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dazn4')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN LaLiga" loading="lazy"></div>
+                    <div class="canal-name">DAZN LaLiga</div>
+                    <div class="canal-desc">Ver DAZN LaLiga online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('daznLaliga')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/images-removebg-preview%20(3).png" alt="Sky Sports LaLiga" loading="lazy"></div>
+                    <div class="canal-name">Sky Sports LaLiga</div>
+                    <div class="canal-desc">Ver Sky Sports LaLiga online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyLaliga')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Liga de Campeones 2" loading="lazy"></div>
+                    <div class="canal-name">Liga de Campeones 2</div>
+                    <div class="canal-desc">Ver Liga de Campeones 2 online en vivo.</div>
+                    <button class="canal-btn" onclick="loadStream('ligacamp2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Liga de Campeones 3" loading="lazy"></div>
+                    <div class="canal-name">Liga de Campeones 3</div>
+                    <div class="canal-desc">Ver Liga de Campeones 3 online en vivo.</div>
+                    <button class="canal-btn" onclick="loadStream('ligacamp3')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/images-removebg-preview%20(2).png" alt="M+ LaLiga TV" loading="lazy"></div>
+                    <div class="canal-name">M+ LaLiga TV</div>
+                    <div class="canal-desc">Ver M+ LaLiga TV online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('mLaligatv')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/laliga.png" alt="LaLigaTV BAR" loading="lazy"></div>
+                    <div class="canal-name">LaLigaTV BAR</div>
+                    <div class="canal-desc">Ver LaLigaTV BAR online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('laligatvbar')">Ver Canal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inglaterra -->
+        <div class="pais-panel" id="pais-inglaterra">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Premier-League-Logo-removebg-preview.png" alt="Premier League" loading="lazy"></div>
+                    <div class="canal-name">Premier League</div>
+                    <div class="canal-desc">Ver Premier League online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('premier')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/tudun.png" alt="TUDN" loading="lazy"></div>
+                    <div class="canal-name">TUDN</div>
+                    <div class="canal-desc">Ver TUDN online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('tudn')">Ver Canal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alemania -->
+        <div class="pais-panel" id="pais-alemania">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/channels4_profile.jpg" alt="Bundesliga" loading="lazy"></div>
+                    <div class="canal-name">Bundesliga</div>
+                    <div class="canal-desc">Ver Bundesliga online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('bundes')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 1" loading="lazy"></div>
+                    <div class="canal-name">Sky Bundesliga 1</div>
+                    <div class="canal-desc">Ver Sky Bundesliga 1 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyBundes1')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 2" loading="lazy"></div>
+                    <div class="canal-name">Sky Bundesliga 2</div>
+                    <div class="canal-desc">Ver Sky Bundesliga 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyBundes2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 3" loading="lazy"></div>
+                    <div class="canal-name">Sky Bundesliga 3</div>
+                    <div class="canal-desc">Ver Sky Bundesliga 3 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyBundes3')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 4" loading="lazy"></div>
+                    <div class="canal-name">Sky Bundesliga 4</div>
+                    <div class="canal-desc">Ver Sky Bundesliga 4 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyBundes4')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 5" loading="lazy"></div>
+                    <div class="canal-name">Sky Bundesliga 5</div>
+                    <div class="canal-desc">Ver Sky Bundesliga 5 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('skyBundes5')">Ver Canal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Italia -->
+        <div class="pais-panel" id="pais-italia">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Serie_A.svg-removebg-preview.png" alt="Serie A" loading="lazy"></div>
+                    <div class="canal-name">Serie A</div>
+                    <div class="canal-desc">Ver Serie A online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('seriea')">Ver Canal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latam -->
+        <div class="pais-panel" id="pais-latam">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN"></div>
+                    <div class="canal-name">ESPN</div>
+                    <div class="canal-desc">Ver ESPN online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 2"></div>
+                    <div class="canal-name">ESPN 2</div>
+                    <div class="canal-desc">Ver ESPN 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 3"></div>
+                    <div class="canal-name">ESPN 3</div>
+                    <div class="canal-desc">Ver ESPN 3 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn3')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 4"></div>
+                    <div class="canal-name">ESPN 4</div>
+                    <div class="canal-desc">Ver ESPN 4 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn4')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 5"></div>
+                    <div class="canal-name">ESPN 5</div>
+                    <div class="canal-desc">Ver ESPN 5 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn5')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 6"></div>
+                    <div class="canal-name">ESPN 6</div>
+                    <div class="canal-desc">Ver ESPN 6 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn6')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 7"></div>
+                    <div class="canal-name">ESPN 7</div>
+                    <div class="canal-desc">Ver ESPN 7 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espn7')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN Premium"></div>
+                    <div class="canal-name">ESPN Premium</div>
+                    <div class="canal-desc">Ver ESPN Premium online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('espnpremium')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports" loading="lazy"></div>
+                    <div class="canal-name">DSports</div>
+                    <div class="canal-desc">Ver DSports online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dsports')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports 2" loading="lazy"></div>
+                    <div class="canal-name">DSports 2</div>
+                    <div class="canal-desc">Ver DSports 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dsports2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports Plus" loading="lazy"></div>
+                    <div class="canal-name">DSports Plus</div>
+                    <div class="canal-desc">Ver DSports Plus online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('dsportsplus')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/50254_750-removebg-preview.png" alt="TNT Sports" loading="lazy"></div>
+                    <div class="canal-name">TNT Sports</div>
+                    <div class="canal-desc">Ver TNT Sports online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('tnt')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports" loading="lazy"></div>
+                    <div class="canal-name">Fox Sports</div>
+                    <div class="canal-desc">Ver Fox Sports online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('foxsports')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports 2" loading="lazy"></div>
+                    <div class="canal-name">Fox Sports 2</div>
+                    <div class="canal-desc">Ver Fox Sports 2 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('foxsports2')">Ver Canal</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports 3" loading="lazy"></div>
+                    <div class="canal-name">Fox Sports 3</div>
+                    <div class="canal-desc">Ver Fox Sports 3 online en vivo y en directo.</div>
+                    <button class="canal-btn" onclick="loadStream('foxsports3')">Ver Canal</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="about-section section" id="acerca">
-        <h2 style="text-align: center; font-size: 2.5em; color: #ff7d47; text-transform: uppercase; margin-bottom: 20px;">ACERCA DE FUTRATLIBRE</h2>
+    <div class="decorative-separator"></div>
+
+    <!-- ===== 3. REPRODUCTOR (ABAJO) ===== -->
+    <div class="video-container section" id="inicio">
+        <iframe id="player" class="player-iframe" src="" allowfullscreen></iframe>
+    </div>
+
+    <div class="decorative-separator"></div>
+
+    <!-- ===== BOTÓN INFO ===== -->
+    <div style="text-align:center; margin: 0 auto 20px auto; position:relative; z-index:2;">
+        <button onclick="toggleInfo()" id="infoToggleBtn"
+            style="padding:12px 36px; background:transparent; color:#ff7d47; border:1.5px solid #ff7d47;
+            border-radius:30px; font-size:1em; cursor:pointer; letter-spacing:1px;
+            transition:background 0.3s, color 0.3s, box-shadow 0.3s; font-family:'Roboto',sans-serif;">
+            <i class="fas fa-info-circle" style="margin-right:8px;"></i> Acerca de / Info
+        </button>
+    </div>
+
+    <!-- ===== PANEL INFO (oculto por defecto) ===== -->
+    <div id="infoPanel" style="
+        max-width:1000px; margin: 0 auto 60px auto; padding: 0 20px;
+        overflow: hidden; max-height: 0;
+        transition: max-height 0.6s ease, opacity 0.6s ease;
+        opacity: 0; position: relative; z-index: 2;">
+        <div style="
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(255,125,71,0.35);
+            border-radius: 20px; padding: 40px 36px;
+            box-shadow: 0 0 40px rgba(255,125,71,0.15);
+            text-align: left; color: #fff; line-height: 1.7;">
+            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Acerca de FutRatLibre</h2>
+            <p style="margin-bottom:15px;">FutRatLibre es tu plataforma ideal para disfrutar en vivo de los mejores canales deportivos dedicados exclusivamente al fútbol. Te ofrecemos acceso rápido y sencillo para que nunca te pierdas los partidos más importantes.</p>
+            <p style="margin-bottom:15px;">Nuestro objetivo es garantizar una experiencia de visualización fluida desde cualquier dispositivo, con una interfaz amigable y fácil de usar.</p>
+            <p style="margin-bottom:30px;">Además, proporcionamos resúmenes, análisis y noticias relacionadas con el fútbol para mantenerte al tanto de todo lo que sucede en este emocionante deporte.</p>
+            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Requisitos de VPN</h2>
+            <p style="margin-bottom:15px;">Para acceder a algunos de nuestros canales, es necesario utilizar una VPN. Recomendamos utilizar la extensión <strong>Urban VPN</strong> configurada hacia la dirección Argentina para garantizar una mejor experiencia de visualización y evitar restricciones geográficas. Sin embargo, para otros canales, el uso de una VPN no es necesario.</p>
+            <p style="margin-bottom:10px;">Si encuentras que no puedes acceder a ciertos canales, te sugerimos activar la VPN siguiendo estos pasos:</p>
+            <ol style="margin-left:22px;margin-bottom:30px;">
+                <li>Instala la extensión <a href="https://urban-vpn.com/" target="_blank" rel="noopener noreferrer" style="color:#ff7d47;">Urban VPN</a> en tu navegador.</li>
+                <li>Configura la VPN hacia la ubicación Argentina.</li>
+                <li>Recarga la página de FutRatLibre y selecciona el canal deseado.</li>
+            </ol>
+            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Canales Caídos</h2>
+            <p style="margin-bottom:15px;">Es importante mencionar que, si algunos canales están caídos o no cargan, podría deberse a que actualmente no hay partidos en disputa para esa liga o canal. Te recomendamos volver a intentarlo más tarde cuando haya eventos deportivos programados.</p>
+            <p>Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos a través de nuestras redes sociales.</p>
+            <div style="text-align:center;margin-top:28px;">
+                <button onclick="toggleInfo()"
+                    style="padding:10px 30px; background:#ff7d47; color:#fff; border:none;
+                    border-radius:25px; font-size:0.95em; cursor:pointer; font-family:'Roboto',sans-serif;">
+                    <i class="fas fa-times" style="margin-right:6px;"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ABOUT (eliminado, reemplazado por panel) ===== -->
+    <div class="about-section section" id="acerca" style="display:none;">
+        <h2 style="text-align:center;font-size:2.5em;color:#ff7d47;text-transform:uppercase;margin-bottom:20px;">ACERCA DE FUTRATLIBRE</h2>
         <p>FutRatLibre es tu plataforma ideal para disfrutar en vivo de los mejores canales deportivos dedicados exclusivamente al fútbol. Te ofrecemos acceso rápido y sencillo para que nunca te pierdas los partidos más importantes.</p>
         <p>Nuestro objetivo es garantizar una experiencia de visualización fluida desde cualquier dispositivo, con una interfaz amigable y fácil de usar.</p>
         <p>Además, proporcionamos resúmenes, análisis y noticias relacionadas con el fútbol para mantenerte al tanto de todo lo que sucede en este emocionante deporte.</p>
-    
-        <h2 style="text-align: center; font-size: 2.5em; color: #ff7d47; text-transform: uppercase; margin-bottom: 20px;">Requisitos de VPN</h2>
+        <h2 style="text-align:center;font-size:2.5em;color:#ff7d47;text-transform:uppercase;margin-bottom:20px;">Requisitos de VPN</h2>
         <p>Para acceder a algunos de nuestros canales, es necesario utilizar una VPN. Recomendamos utilizar la extensión <strong>Urban VPN</strong> configurada hacia la dirección Argentina para garantizar una mejor experiencia de visualización y evitar restricciones geográficas. Sin embargo, para otros canales, el uso de una VPN no es necesario.</p>
         <p>Si encuentras que no puedes acceder a ciertos canales, te sugerimos activar la VPN siguiendo estos pasos:</p>
         <ol>
@@ -848,14 +726,14 @@
             <li>Configura la VPN hacia la ubicación Argentina.</li>
             <li>Recarga la página de FutRatLibre y selecciona el canal deseado.</li>
         </ol>
-        <h3 style="text-align: center; font-size: 2em; color: #ff7d47; text-transform: uppercase; margin-top: 30px;">CANALES CAÍDOS</h3>
+        <h3 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;margin-top:30px;">CANALES CAÍDOS</h3>
         <p>Es importante mencionar que, si algunos canales están caídos o no cargan, podría deberse a que actualmente no hay partidos en disputa para esa liga o canal. Te recomendamos volver a intentarlo más tarde cuando haya eventos deportivos programados.</p>
         <p>Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos a través de nuestra sección de <a href="#" onclick="showContact()">Contacto</a>.</p>
     </div>
 
     <footer class="section">
-        <p style="text-align: center; font-size: 14px; margin-bottom: 20px;">
-            © 2024 FutRatLibre. Todos los derechos reservados. Este sitio web y sus contenidos
+        <p style="text-align:center;font-size:14px;margin-bottom:20px;">
+            © 2024 FutRatLibre. Todos los derechos reservados.
         </p>
         <div class="social-icons">
             <a href="https://instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -866,91 +744,144 @@
     </footer>
 
     <div id="modalOverlay"></div>
-
     <div id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
         <h2 id="contactModalTitle">Contacto</h2>
         <div class="social-links">
             <h3>Mis Redes Sociales</h3>
             <ul>
-                <li>
-                    <strong>Instagram:</strong>
-                    <a href="https://www.instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer">21rata130_</a>
-                </li>
-                <li>
-                    <strong>TikTok:</strong>
-                    <a href="https://tiktok.com/@12.eriic_" target="_blank" rel="noopener noreferrer">21rata130</a>
-                </li>
-                <li>
-                    <strong>Discord:</strong>
-                    <a href="https://discord.com/users/21rata130_" target="_blank" rel="noopener noreferrer">21rata130_</a>
-                </li>
-                <li>
-                    <strong>GitHub:</strong>
-                    <a href="https://github.com/21rata130ofc" target="_blank" rel="noopener noreferrer">21rata130ofc</a>
-                </li>
+                <li><strong>Instagram:</strong> <a href="https://www.instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer">21rata130_</a></li>
+                <li><strong>TikTok:</strong>    <a href="https://tiktok.com/@12.eriic_"         target="_blank" rel="noopener noreferrer">21rata130</a></li>
+                <li><strong>Discord:</strong>   <a href="https://discord.com/users/21rata130_"  target="_blank" rel="noopener noreferrer">21rata130_</a></li>
+                <li><strong>GitHub:</strong>    <a href="https://github.com/21rata130ofc"       target="_blank" rel="noopener noreferrer">21rata130ofc</a></li>
             </ul>
         </div>
         <div class="additional-info">
             <h3>Contacto Alternativo</h3>
-            <p>Si deseas ponerte en contacto con nosotros, puedes hacerlo a través de nuestras redes sociales mencionadas arriba. Estamos siempre disponibles para responder a tus preguntas y comentarios.</p>
-            <p>También puedes unirte a nuestro servidor de Discord para interactuar directamente con la comunidad y el equipo de FutRatLibre.</p>
+            <p>Si deseas ponerte en contacto con nosotros, puedes hacerlo a través de nuestras redes sociales mencionadas arriba.</p>
+            <p>También puedes unirte a nuestro servidor de Discord para interactuar directamente con la comunidad.</p>
         </div>
         <button type="button" class="close-button" onclick="hideContact()">Cerrar</button>
     </div>
 
-    <!-- Botón "Volver Arriba" -->
     <button id="backToTop" title="Volver Arriba"><i class="fas fa-arrow-up"></i></button>
 
-    <!-- Scripts al final del body -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
+        function showPais(pais) {
+            document.querySelectorAll('.pais-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.pais-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('pais-' + pais).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleInfo() {
+            const panel = document.getElementById('infoPanel');
+            const btn   = document.getElementById('infoToggleBtn');
+            const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+            if (isOpen) {
+                panel.style.maxHeight = '0px';
+                panel.style.opacity   = '0';
+                btn.innerHTML = '<i class="fas fa-info-circle" style="margin-right:8px;"></i> Acerca de / Info';
+            } else {
+                panel.style.maxHeight = '2000px';
+                panel.style.opacity   = '1';
+                btn.innerHTML = '<i class="fas fa-times" style="margin-right:8px;"></i> Cerrar Info';
+                setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+            }
+        }
+
         function showContact() {
             document.getElementById('contactModal').classList.add('active');
             document.getElementById('modalOverlay').classList.add('active');
         }
-
         function hideContact() {
             document.getElementById('contactModal').classList.remove('active');
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        function loadStream(url) {
+        const _s = {
+            espn:     atob('aHR0cHM6Ly9sYTEyaGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG4='),
+            laliga:   atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9sYWxpZ2EzLnBocA=='),
+            dsports:  atob('aHR0cHM6Ly9sYTEyaGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRzcG9ydHM='),
+            tnt:      atob('aHR0cHM6Ly9sYTEyaGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXRudHNwb3J0cw=='),
+            laliga2:  atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9sYWxpZ2ExYS5waHA='),
+            seriea:   atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9zZXJpZWEyLnBocA=='),
+            premier:  atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9wcmVtaWVyMi5waHA='),
+            bundes:   atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9jYW5hbDM3LnBocA=='),
+            dazn:       atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9jYW5hbDIucGhw'),
+            movistarLC: atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWxpZ2FkZWNhbXBlb25lczE='),
+            espn2:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG4y'),
+            espn3:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG4z'),
+            espn4:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG40'),
+            espn5:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG41'),
+            espn6:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG42'),
+            espn7:       atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG43'),
+            espnpremium: atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG5wcmVtaXVt'),
+            dsports2:    atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRzcG9ydHMy'),
+            dsportsplus: atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRzcG9ydHNwbHVz'),
+            foxsports:   atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWZveHNwb3J0cw=='),
+            foxsports2:  atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWZveHNwb3J0czI='),
+            foxsports3:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWZveHNwb3J0czM='),
+            skyLaliga:      atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9zcG9ydHNfbGFsaWdh'),
+            dazn2:          atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRhem4y'),
+            dazn3:          atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRhem4z'),
+            dazn4:          atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRhem40'),
+            daznLaliga:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWRhem5fbGFsaWdh'),
+            ligacamp2:      atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWxpZ2FkZWNhbXBlb25lczI='),
+            ligacamp3:      atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWxpZ2FkZWNhbXBlb25lczM='),
+            mLaligatv:      atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPW1fbGFsaWdhdHY='),
+            laligatvbar:    atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWxhbGlnYXR2YmFy'),
+            skyBundes1:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9idW5kZXNsaWdhMQ=='),
+            skyBundes2:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9idW5kZXNsaWdhMg=='),
+            skyBundes3:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9idW5kZXNsaWdhMw=='),
+            skyBundes4:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9idW5kZXNsaWdhNA=='),
+            skyBundes5:     atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXNreV9idW5kZXNsaWdhNQ=='),
+            tudn:           atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXR1ZG4=')
+        };
+
+        function loadStream(key) {
             const player = document.getElementById('player');
-            player.src = url;
+            const url = _s[key];
+            const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;background:#000}</style></head><body><iframe src="${url}" style="width:100%;height:100vh;border:none" allowfullscreen></iframe></body></html>`;
+            const blob = new Blob([html], {type: 'text/html'});
+            player.src = URL.createObjectURL(blob);
             player.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Generar partículas y estrellas
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.top = `${Math.random() * 100}vh`;
-            particle.style.animationDuration = `${Math.random() * 4 + 3}s`;
-            document.body.appendChild(particle);
+        function reloadAgenda() {
+            const frame = document.getElementById('agendaFrame');
+            const btn = document.querySelector('.agenda-reload-btn i');
+            btn.style.animation = 'spin 0.8s linear infinite';
+            frame.src = frame.src;
+            setTimeout(() => { btn.style.animation = ''; }, 1500);
         }
 
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = `${Math.random()*100}vw`;
+            p.style.top  = `${Math.random()*100}vh`;
+            p.style.animationDuration = `${Math.random()*4+3}s`;
+            document.body.appendChild(p);
+        }
         for (let i = 0; i < 30; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.animationDuration = `${Math.random() * 5 + 5}s`;
-            star.style.width = `${Math.random() * 3 + 1}px`;
-            star.style.height = star.style.width;
-            document.body.appendChild(star);
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = `${Math.random()*100}vw`;
+            s.style.top  = `${Math.random()*100}vh`;
+            s.style.animationDuration = `${Math.random()*5+5}s`;
+            const sz = `${Math.random()*3+1}px`;
+            s.style.width = sz; s.style.height = sz;
+            document.body.appendChild(s);
         }
 
         const hamburger = document.getElementById('hamburger');
-        const navbar = document.getElementById('navbar');
-
+        const navbar    = document.getElementById('navbar');
         hamburger.addEventListener('click', () => {
             navbar.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
-
-        const navLinks = navbar.querySelectorAll('a');
-        navLinks.forEach(link => {
+        navbar.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navbar.classList.contains('active')) {
                     navbar.classList.remove('active');
@@ -959,123 +890,47 @@
             });
         });
 
-        // Preloader al cargar la página
         window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            preloader.classList.add('hidden');
+            document.getElementById('preloader').classList.add('hidden');
         });
 
-        // Botón "Volver Arriba"
         const backToTopButton = document.getElementById('backToTop');
-
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.style.display = 'block';
-            } else {
-                backToTopButton.style.display = 'none';
-            }
+            backToTopButton.style.display = window.scrollY > 300 ? 'block' : 'none';
         });
-
         backToTopButton.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Animación de entrada para las secciones
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.section');
-
-            const observer = new IntersectionObserver((entries) => {
+            const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
-                    if(entry.isIntersecting){
+                    if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                         observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            document.querySelectorAll('.section').forEach(s => observer.observe(s));
         });
 
-        // Particles.js configuración
         particlesJS("particles-js", {
             "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 700
-                    }
-                },
-                "color": {
-                    "value": "#ff7d47"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    }
-                },
-                "opacity": {
-                    "value": 0.7,
-                    "random": true,
-                    "anim": {
-                        "enable": true,
-                        "speed": 0.5,
-                        "opacity_min": 0.3,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": false
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 1,
-                    "direction": "none",
-                    "random": true,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
+                "number": { "value": 80, "density": { "enable": true, "value_area": 700 } },
+                "color": { "value": "#ff7d47" },
+                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+                "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } },
+                "size":    { "value": 3,   "random": true, "anim": { "enable": false } },
+                "line_linked": { "enable": false },
+                "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
             },
             "interactivity": {
                 "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "repulse": {
-                        "distance": 100,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    }
-                }
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "modes":  { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
             },
             "retina_detect": true
         });
     </script>
-</body>  
+</body>
 </html>
