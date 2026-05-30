@@ -3,374 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FutRatLibre</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pM8YkpE+YQlkR4D0JeFOgFyHafG+VVUJ+Rj5khKxI4A3TgfAVoCqZ59k5HjgIp/bFeHO9+IhLgFIfHCiK7pYKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>FutRatLibre | Deportes en Vivo</title>
+    <!-- Iconos y Tipografías de Google Premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
+        :root {
+            --bg-dark: #07090e;
+            --bg-card: rgba(18, 24, 38, 0.6);
+            --bg-card-hover: rgba(26, 35, 56, 0.85);
+            --accent: #ff5722;
+            --accent-gradient: linear-gradient(135deg, #ff5722, #ff8a50);
+            --accent-glow: rgba(255, 87, 34, 0.35);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 87, 34, 0.12);
+            --border-hover: rgba(255, 87, 34, 0.4);
+            --glass-bg: rgba(7, 9, 14, 0.8);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Scrollbar Personalizado Estilo Premium */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Preloader Optimizado */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #16213e; display: flex; justify-content: center; align-items: center;
-            z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s;
+            background: var(--bg-dark); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.4s ease, visibility 0.4s;
         }
         #preloader.hidden { opacity: 0; visibility: hidden; }
         .spinner {
-            border: 8px solid rgba(255,255,255,0.1); border-top: 8px solid #ff7d47;
-            border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;
+            border: 4px solid rgba(255, 87, 34, 0.1); border-top: 4px solid var(--accent);
+            border-radius: 50%; width: 50px; height: 50px; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         body {
-            font-family: 'Roboto', sans-serif; text-align: center;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #ffffff; margin: 0; padding: 0; overflow-x: hidden;
+            font-family: var(--font-sans);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
             position: relative;
-            cursor: url('https://cdn.custom-cursor.com/db/2295/32/football.png'), auto;
-            transition: background 0.5s ease;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* Luces de Fondo Ambientales Estáticas (Rendimiento del 100% y Ultra Livianas) */
+        body::before {
+            content: ''; position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(255, 87, 34, 0.06) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        body::after {
+            content: ''; position: fixed; bottom: -10%; right: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(255, 87, 34, 0.04) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* HEADER & MENÚ */
         header {
-            padding: 20px 0; background: rgba(0,0,0,0.8);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; overflow: hidden;
+            padding: 16px 40px; 
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: fixed; width: 100%; top: 0; left: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        header::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, rgba(255,125,71,0.3), rgba(255,154,61,0.3));
-            mix-blend-mode: overlay; animation: headerGlow 5s infinite alternate; pointer-events: none;
-        }
-        @keyframes headerGlow { from { opacity: 0.3; } to { opacity: 0.6; } }
 
         h1 {
-            margin: 0; color: #ff7d47; font-size: 2.5em; text-transform: uppercase;
-            letter-spacing: 3px; animation: glow 2s ease-in-out infinite alternate;
+            margin: 0; font-family: var(--font-heading); font-size: 1.8em; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #ff8a50 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;
         }
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff7d47, 0 0 20px #ff7d47, 0 0 30px #ff7d47; }
-            to   { text-shadow: 0 0 20px #ff9a3d, 0 0 30px #ff9a3d, 0 0 40px #ff9a3d; }
-        }
+        h1 i { color: var(--accent); font-size: 0.9em; }
 
-        nav { margin-top: 10px; display: flex; justify-content: center; align-items: center; }
+        nav { display: flex; align-items: center; gap: 8px; }
         nav a {
-            color: #ff7d47; text-decoration: none; margin: 0 15px; font-size: 1em;
-            transition: color 0.3s; cursor: pointer; position: relative;
+            color: var(--text-muted); text-decoration: none; font-size: 0.95em; font-weight: 500;
+            padding: 8px 16px; border-radius: 20px; transition: var(--transition-smooth);
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
         }
-        nav a::after { content: ''; display: block; width: 0; height: 2px; background: #ff9a3d; transition: width .3s; margin: auto; }
-        nav a:hover::after { width: 100%; }
+        nav a:hover, nav a.active {
+            color: var(--text-main); background: rgba(255, 255, 255, 0.06);
+        }
+        nav a i { font-size: 0.9em; color: var(--accent); opacity: 0.85; }
 
-        .hamburger { display: none; flex-direction: column; cursor: pointer; margin-left: 20px; }
-        .hamburger div { width: 25px; height: 3px; background-color: #ff7d47; margin: 4px 0; transition: all 0.3s ease; }
+        .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+        .hamburger span { width: 24px; height: 2px; background-color: var(--text-main); transition: var(--transition-smooth); }
 
-        /* ===== SEPARADOR ===== */
+        /* SECCIONES CONTENEDORAS */
+        .section {
+            max-width: 1200px; margin: 0 auto; padding: 40px 24px;
+            opacity: 0; transform: translateY(15px); transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+
+        /* SEPARADORES MODERNOS */
         .decorative-separator {
-            width: 80%; height: 2px; background: #ff7d47;
-            margin: 40px auto; position: relative; overflow: hidden;
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.15) 50%, transparent);
+            margin: 20px 0;
         }
-        .decorative-separator::before, .decorative-separator::after {
-            content: ''; position: absolute; width: 50%; height: 100%;
-            background: linear-gradient(45deg, #ff7d47, #ff9a3d); top: 0;
-        }
-        .decorative-separator::before { left: 0; transform: skewX(-20deg); }
-        .decorative-separator::after  { right: 0; transform: skewX(20deg); }
 
-        /* ===== AGENDA ===== */
-        .agenda-section {
-            margin: 110px auto 0 auto;
-            max-width: 1100px;
-            padding: 0 20px;
-            position: relative; z-index: 2;
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        .agenda-section.visible { opacity: 1; transform: translateY(0); }
-
+        /* AGENDA DEL DIÁ */
+        .agenda-section { margin-top: 110px; }
         .agenda-header {
-            display: flex; align-items: center; justify-content: center;
-            gap: 14px; margin-bottom: 22px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .agenda-header h2 {
-            color: #ff7d47; font-size: 2em; text-transform: uppercase;
-            letter-spacing: 3px; text-shadow: 0 0 15px rgba(255,125,71,0.5);
+        .agenda-title-wrap { display: flex; align-items: center; gap: 12px; }
+        .agenda-title-wrap h2 {
+            font-family: var(--font-heading); color: var(--text-main); font-size: 1.8em; font-weight: 700;
         }
-        .agenda-header .live-badge {
-            background: #e74c3c; color: #fff; font-size: 0.7em; font-weight: 700;
-            padding: 4px 10px; border-radius: 20px; letter-spacing: 2px;
-            animation: blink 1.5s infinite;
+        .agenda-title-wrap i { color: var(--accent); font-size: 1.3em; }
+
+        .live-badge {
+            background: rgba(231, 76, 60, 0.15); color: #e74c3c; font-size: 0.75em; font-weight: 700;
+            padding: 6px 14px; border-radius: 30px; letter-spacing: 1px;
+            border: 1px solid rgba(231, 76, 60, 0.25); display: flex; align-items: center; gap: 6px;
+        }
+        .live-badge::before {
+            content: ''; display: inline-block; width: 6px; height: 6px; background: #e74c3c;
+            border-radius: 50%; animation: blink 1.5s infinite;
         }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         .agenda-iframe-wrapper {
-            position: relative; width: 100%; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 0 40px rgba(255,125,71,0.25), 0 12px 30px rgba(0,0,0,0.6);
-            border: 1.5px solid rgba(255,125,71,0.35); background: #000;
+            position: relative; width: 100%; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--border-color);
+            background: #000;
         }
-        .agenda-iframe-wrapper::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, #ff7d47, #ff9a3d, transparent);
-            z-index: 10; animation: scanLine 3s linear infinite;
-        }
-        @keyframes scanLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         .agenda-iframe-wrapper iframe {
-            width: 100%; height: 600px; border: none; border-radius: 20px;
-            background: #000; display: block;
+            width: 100%; height: 560px; border: none; display: block;
         }
+        
         .agenda-reload-btn {
-            margin-top: 14px; padding: 10px 26px; background: transparent;
-            color: #ff7d47; border: 1.5px solid #ff7d47; border-radius: 30px;
-            font-size: 0.9em; cursor: pointer; letter-spacing: 1px;
-            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+            padding: 10px 24px; background: rgba(255, 87, 34, 0.08);
+            color: var(--accent); border: 1px solid rgba(255, 87, 34, 0.2); border-radius: 30px;
+            font-size: 0.9em; font-weight: 600; cursor: pointer; transition: var(--transition-smooth);
         }
-        .agenda-reload-btn:hover { background: #ff7d47; color: #fff; box-shadow: 0 0 20px rgba(255,125,71,0.5); }
-        .agenda-reload-btn i { margin-right: 6px; }
+        .agenda-reload-btn:hover {
+            background: var(--accent); color: #fff; box-shadow: 0 8px 20px var(--accent-glow);
+            transform: translateY(-1px); border-color: transparent;
+        }
 
-        /* ===== REPRODUCTOR ===== */
-        .video-container {
-            margin: 50px auto; position: relative; z-index: 2;
-            max-width: 1100px; padding: 0 20px;
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+        /* REPRODUCTOR */
+        .video-container { display: none; margin: 40px auto; }
+        .video-container.active { display: block; animation: fadeInUp 0.5s ease; }
+        
+        .player-wrapper {
+            position: relative; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 87, 34, 0.1);
+            border: 1px solid var(--border-color); background: #000;
         }
-        .video-container.visible { opacity: 1; transform: translateY(0); }
-        iframe.player-iframe {
-            width: 100%; height: 600px; border: none; border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5); background: #000;
-            transition: transform 0.3s ease;
-        }
-        iframe.player-iframe:hover { transform: scale(1.02); }
+        iframe.player-iframe { width: 100%; height: 580px; border: none; display: block; }
 
-        /* ===== TABS POR PAÍS ===== */
+        /* CANALES POR PAÍS */
+        .canales-section h2 {
+            font-family: var(--font-heading); font-size: 1.8em; font-weight: 700;
+            color: var(--text-main); margin-bottom: 24px; text-align: left;
+        }
+        
+        /* Pestañas / Tabs modernas */
         .pais-tabs {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 10px; margin-bottom: 30px;
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+            background: rgba(255, 255, 255, 0.03); padding: 6px; border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05); width: fit-content;
         }
         .pais-btn {
-            padding: 10px 22px; background: rgba(255,255,255,0.05);
-            color: #aaa; border: 1.5px solid rgba(255,255,255,0.1);
-            border-radius: 30px; font-size: 0.95em; font-weight: 700;
-            cursor: pointer; letter-spacing: 0.5px; font-family: 'Roboto', sans-serif;
-            transition: all 0.3s ease;
+            padding: 10px 24px; background: transparent;
+            color: var(--text-muted); border: none; border-radius: 30px;
+            font-size: 0.9em; font-weight: 600; cursor: pointer;
+            transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px;
         }
-        .pais-btn:hover { color: #ff7d47; border-color: #ff7d47; background: rgba(255,125,71,0.08); }
+        .pais-btn:hover { color: var(--text-main); }
         .pais-btn.active {
-            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
-            color: #fff; border-color: transparent;
-            box-shadow: 0 4px 16px rgba(255,125,71,0.4);
+            background: var(--accent-gradient); color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
         }
-        .pais-panel { display: none; }
-        .pais-panel.active { display: block; animation: fadeInUp 0.4s ease; }
-        @keyframes fadeInUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
 
-        /* ===== CANALES GRID ===== */
-        .canales-section {
-            margin: 0 auto 50px auto;
-            max-width: 1200px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        .canales-section.visible { opacity: 1; transform: translateY(0); }
-        .canales-section h2 {
-            color: #ff7d47; font-size: 1.7em; text-transform: uppercase;
-            letter-spacing: 2px; margin-bottom: 28px;
-            text-shadow: 0 0 14px rgba(255,125,71,0.4);
-        }
+        .pais-panel { display: none; }
+        .pais-panel.active { display: block; }
+
+        /* Grid de canales rediseñado */
         .canales-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;
         }
         .canal-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-            padding: 22px 14px 18px;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
-            position: relative; overflow: hidden;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 24px 20px;
+            display: flex; flex-direction: column; align-items: center;
+            transition: var(--transition-smooth); position: relative; overflow: hidden;
         }
-        .canal-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #ff7d47, #ff9a3d);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .canal-card:hover::before { opacity: 1; }
         .canal-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-            background: rgba(255,255,255,0.07);
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 15px rgba(255, 87, 34, 0.1);
         }
         .canal-logo-wrap {
-            width: 100%; height: 90px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px;
+            width: 100%; height: 80px; display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.02); border-radius: 12px; padding: 12px;
+            margin-bottom: 16px; border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition-smooth);
+        }
+        .canal-card:hover .canal-logo-wrap {
+            background: rgba(255, 255, 255, 0.04);
         }
         .canal-logo-wrap img {
-            max-width: 100%; max-height: 70px; object-fit: contain; transition: transform 0.3s;
+            max-width: 100%; max-height: 100%; object-fit: contain;
         }
-        .canal-card:hover .canal-logo-wrap img { transform: scale(1.08); }
-        .canal-name { font-weight: 700; font-size: 1em; color: #fff; text-align: center; }
-        .canal-desc { font-size: 0.78em; color: #aaa; text-align: center; line-height: 1.4; }
+        .canal-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.05em; color: var(--text-main); margin-bottom: 6px; }
+        .canal-desc { font-size: 0.8em; color: var(--text-muted); text-align: center; line-height: 1.4; margin-bottom: 18px; height: 36px; display: flex; align-items: center; }
+        
         .canal-btn {
-            margin-top: 4px; padding: 9px 24px;
-            background: linear-gradient(135deg, #ff7d47, #ff9a3d);
-            color: #fff; border: none; border-radius: 25px;
-            font-size: 0.9em; font-weight: 700; cursor: pointer; letter-spacing: 0.5px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            animation: pulse 2.5s infinite;
+            width: 100%; padding: 11px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
+            font-size: 0.9em; font-weight: 600; cursor: pointer;
+            transition: var(--transition-smooth);
         }
-        .canal-btn:hover { transform: scale(1.06); box-shadow: 0 6px 20px rgba(255,125,71,0.6); animation: none; }
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 4px 10px rgba(255,125,71,0.3); }
-            50%      { box-shadow: 0 6px 20px rgba(255,125,71,0.6); }
+        .canal-card:hover .canal-btn {
+            background: var(--accent-gradient); border-color: transparent;
+            box-shadow: 0 6px 16px var(--accent-glow);
         }
 
-        /* ===== ABOUT ===== */
-        .about-section {
-            margin: 50px auto; max-width: 1000px; padding: 0 20px; text-align: left;
-            color: #ffffff; z-index: 2; position: relative;
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+        /* ACERCA DE / INFO PANEL */
+        #infoToggleBtn {
+            padding: 12px 36px; background: transparent; color: var(--accent);
+            border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 30px;
+            font-size: 0.95em; font-weight: 600; cursor: pointer;
+            transition: var(--transition-smooth); font-family: var(--font-sans);
         }
-        .about-section.visible { opacity: 1; transform: translateY(0); }
-        .about-section h2 { color: #ff7d47; margin-bottom: 20px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
-        .about-section p { margin-bottom: 15px; line-height: 1.6; }
-        .about-section h3 { color: #ff7d47; margin-top: 30px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .about-section ol { margin-left: 20px; margin-bottom: 15px; }
-        .about-section a { color: #ff7d47; text-decoration: underline; }
+        #infoToggleBtn:hover {
+            background: rgba(255, 87, 34, 0.06); border-color: var(--accent);
+        }
 
-        /* ===== FOOTER ===== */
+        #infoPanel {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            overflow: hidden; max-height: 0; opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        }
+        .info-content {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            text-align: left; color: var(--text-main);
+        }
+        .info-content h2 {
+            font-family: var(--font-heading); font-size: 1.8em; color: var(--accent);
+            margin-bottom: 20px; font-weight: 700;
+        }
+        .info-content p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; font-size: 0.95em; }
+        .info-content ol { margin-left: 20px; margin-bottom: 24px; color: var(--text-muted); }
+        .info-content li { margin-bottom: 8px; }
+        .info-content a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .info-content a:hover { text-decoration: underline; }
+
+        /* FOOTER */
         footer {
-            padding: 30px 20px; background: #10101a; color: #bbbbbb; font-size: 14px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.5); position: relative; z-index: 2;
-            opacity: 0; transform: translateY(20px); transition: opacity 1s ease-out, transform 1s ease-out;
+            padding: 40px 24px; background: #04060a; color: var(--text-muted);
+            font-size: 14px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
-        footer.visible { opacity: 1; transform: translateY(0); }
-        footer p { margin: 0 0 10px 0; }
-        footer a { color: #ff7d47; text-decoration: none; margin: 0 10px; position: relative; }
-        footer a::after { content: ''; display: block; width: 0; height: 2px; background: #ff9a3d; transition: width .3s; margin: auto; }
-        footer a:hover::after { width: 100%; }
-        .social-icons { margin-top: 10px; }
+        footer p { margin-bottom: 16px; }
+        .social-icons { display: flex; justify-content: center; gap: 16px; }
         .social-icons a {
-            color: #ff7d47; margin: 0 10px; font-size: 1.5em;
-            transition: color 0.3s, transform 0.3s; position: relative; display: inline-block;
+            color: var(--text-muted); width: 42px; height: 42px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2em; transition: var(--transition-smooth); border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .social-icons a::after {
-            content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            border: 2px solid #ff7d47; border-radius: 50%; opacity: 0; transition: opacity 0.3s, transform 0.3s;
+        .social-icons a:hover {
+            color: #fff; background: var(--accent); border-color: transparent;
+            transform: translateY(-3px); box-shadow: 0 6px 15px var(--accent-glow);
         }
-        .social-icons a:hover::after { opacity: 1; transform: scale(1.2); }
-        .social-icons a:hover { color: #ff9a3d; transform: scale(1.2); }
 
-        /* ===== MODAL ===== */
+        /* MODAL */
         #modalOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 100; opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(4, 6, 10, 0.85); z-index: 1001; opacity: 0;
+            transition: opacity 0.3s ease; backdrop-filter: blur(8px);
         }
         #modalOverlay.active { display: block; opacity: 1; }
+
         #contactModal {
             display: none; position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); background: #000000; padding: 30px;
-            border-radius: 10px; border: 2px solid #ff7d47; z-index: 101;
-            width: 80%; max-width: 600px; color: #ffffff;
-            box-shadow: 0 5px 15px rgba(255,125,71,0.5); opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translate(-50%, -45%) scale(0.95); background: #0d121f; padding: 40px;
+            border-radius: 20px; border: 1px solid var(--border-hover); z-index: 1002;
+            width: 90%; max-width: 550px; color: var(--text-main);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 87, 34, 0.15);
+            transition: var(--transition-smooth);
         }
         #contactModal.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        #contactModal h2 { margin-top: 0; color: #ff7d47; text-align: center; }
-        .social-links { margin-top: 20px; text-align: left; }
-        .social-links h3 { color: #ff7d47; margin-bottom: 10px; text-align: left; }
-        .social-links ul { list-style: none; padding: 0; margin: 0; }
-        .social-links li { margin-bottom: 15px; display: flex; align-items: center; }
-        .social-links strong { margin-right: 10px; width: 80px; text-align: left; }
-        .social-links a { color: #ff7d47; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        .social-links a:hover { color: #ff9a3d; }
+        #contactModal h2 { font-family: var(--font-heading); margin-bottom: 24px; color: var(--text-main); text-align: center; font-size: 1.8em; }
+        
+        .social-links h3, .additional-info h3 { font-family: var(--font-heading); font-size: 1.1em; color: var(--accent); margin-bottom: 14px; }
+        .social-links ul { list-style: none; margin-bottom: 24px; }
+        .social-links li { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+        .social-links strong { color: var(--text-muted); width: 90px; font-weight: 500; font-size: 0.9em; }
+        .social-links a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95em; transition: var(--transition-smooth); }
+        .social-links a:hover { color: var(--accent); }
+
+        .additional-info p { color: var(--text-muted); font-size: 0.9em; line-height: 1.6; margin-bottom: 8px; }
+
         #contactModal .close-button {
-            padding: 10px; background: #ff7d47; color: #ffffff; border: none;
-            border-radius: 5px; cursor: pointer; font-size: 1em; width: 100%; margin-top: 20px;
+            padding: 12px; background: var(--accent-gradient); color: #ffffff; border: none;
+            border-radius: 12px; cursor: pointer; font-size: 0.95em; font-weight: 600; width: 100%; margin-top: 24px;
+            transition: var(--transition-smooth);
         }
-        #contactModal .close-button:hover { background: #ff9a3d; }
+        #contactModal .close-button:hover {
+            box-shadow: 0 6px 18px var(--accent-glow); transform: translateY(-1px);
+        }
 
-        /* ===== PARTICLES ===== */
-        .particle, .star { position: absolute; border-radius: 50%; z-index: 1; }
-        .particle { width: 10px; height: 10px; background: linear-gradient(135deg, #ff7d47, #ff914d); opacity: 0.7; animation: move 6s infinite; }
-        @keyframes move { 0% { transform: translate(0,0); opacity: 0.7; } 50% { opacity: 0.4; } 100% { transform: translate(100vw,100vh); opacity: 0; } }
-        .star { width: 2px; height: 2px; background: white; opacity: 0.8; animation: twinkle 5s infinite; }
-        @keyframes twinkle { 0%,100% { opacity: 0.8; } 50% { opacity: 0.3; } }
-
+        /* VOLVER ARRIBA */
         #backToTop {
-            position: fixed; bottom: 40px; right: 40px; z-index: 100;
-            background-color: #ff7d47; color: white; border: none; padding: 15px;
-            border-radius: 50%; cursor: pointer; font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background-color 0.3s, transform 0.3s; display: none;
+            position: fixed; bottom: 30px; right: 30px; z-index: 100;
+            background: var(--accent-gradient); color: white; border: none; width: 48px; height: 48px;
+            border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px var(--accent-glow); transition: var(--transition-smooth); opacity: 0; visibility: hidden;
         }
-        #backToTop:hover { background-color: #ff9a3d; transform: scale(1.1); }
+        #backToTop.visible { opacity: 1; visibility: visible; }
+        #backToTop:hover { transform: translateY(-3px); }
 
-        .wave-container { position: absolute; bottom: 0; width: 100%; overflow: hidden; line-height: 0; transform: rotate(180deg); z-index: 0; }
-        .waves { position: relative; display: block; width: calc(200% + 1.3px); height: 100px; }
-        .parallax > use { animation: moveWaves 10s linear infinite; }
-        .parallax > use:nth-child(1) { animation-delay: 0s; animation-duration: 7s; }
-        .parallax > use:nth-child(2) { animation-delay: -2s; animation-duration: 10s; }
-        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
-        @keyframes moveWaves { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
-        #particles-js { position: fixed; width: 100%; height: 100%; background-color: transparent; top: 0; left: 0; z-index: 0; }
-        html { scroll-behavior: smooth; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) { .canales-grid { grid-template-columns: repeat(3,1fr); } }
+        /* RESPONSIVO */
+        @media (max-width: 900px) {
+            .canales-grid { grid-template-columns: repeat(2, 1fr); }
+            header { padding: 16px 24px; }
+        }
         @media (max-width: 768px) {
-            .particle, .star { display: none; }
-            .canales-grid { grid-template-columns: repeat(2,1fr); }
-            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 400px; }
+            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 420px; }
             .hamburger { display: flex; }
-            nav { position: fixed; top: 70px; left: -100%; flex-direction: column; background: rgba(0,0,0,0.9); width: 100%; transition: left 0.3s ease; padding: 20px 0; }
+            
+            nav {
+                position: fixed; top: 68px; left: -100%; flex-direction: column;
+                background: #07090ec7; backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                width: 100%; height: calc(100vh - 68px); transition: var(--transition-smooth);
+                padding: 40px 24px; align-items: stretch; gap: 16px;
+            }
             nav.active { left: 0; }
-            nav a { margin: 10px 0; font-size: 1.5em; }
+            nav a { font-size: 1.1em; padding: 12px 24px; border-radius: 12px; }
+            
+            .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
         }
         @media (max-width: 480px) {
-            .canales-grid { grid-template-columns: repeat(2,1fr); }
-            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 300px; }
-            h1 { font-size: 2em; }
+            .canales-grid { grid-template-columns: 1fr; }
+            .agenda-iframe-wrapper iframe, iframe.player-iframe { height: 320px; }
+            h1 { font-size: 1.5em; }
+            .pais-tabs { width: 100%; }
+            .pais-btn { flex: 1; justify-content: center; padding: 10px 14px; font-size: 0.8em; }
         }
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
-
-    <div class="wave-container">
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
-            </defs>
-            <g class="parallax">
-                <use href="#wave-path" x="48" y="0" fill="rgba(255, 125, 71, 0.7)" />
-                <use href="#wave-path" x="48" y="3" fill="rgba(255, 154, 61, 0.5)" />
-                <use href="#wave-path" x="48" y="5" fill="rgba(255, 181, 93, 0.3)" />
-            </g>
-        </svg>
-    </div>
-
     <div id="preloader"><div class="spinner"></div></div>
 
     <header>
-        <h1 class="animate__animated animate__pulse">FutRatLibre</h1>
+        <h1 class="animate__animated animate__fadeInLeft"><i class="fas fa-play-circle"></i> FutRatLibre</h1>
         <nav id="navbar">
+            <a href="#agenda" class="active"><i class="fas fa-calendar-alt"></i> Agenda</a>
+            <a href="#canales"><i class="fas fa-tv"></i> Canales</a>
+            <a href="#inicio" id="nav-player-link" style="display: none;"><i class="fas fa-play"></i> Reproductor</a>
+            <a onclick="toggleInfo()"><i class="fas fa-info-circle"></i> Acerca de</a>
+            <a onclick="showContact()"><i class="fas fa-envelope"></i> Contacto</a>
         </nav>
         <div class="hamburger" id="hamburger">
-            <div></div><div></div><div></div>
+            <span></span><span></span><span></span>
         </div>
     </header>
 
     <!-- ===== 1. AGENDA DEL DÍA (ARRIBA) ===== -->
     <div class="agenda-section section" id="agenda">
         <div class="agenda-header">
-            <h2><i class="fas fa-calendar-alt" style="margin-right:10px;"></i>Agenda del Día</h2>
-            <span class="live-badge">● HOY</span>
+            <div class="agenda-title-wrap">
+                <i class="fas fa-calendar-day"></i>
+                <h2>Agenda del Día</h2>
+            </div>
+            <span class="live-badge">HOY</span>
         </div>
         <div class="agenda-iframe-wrapper">
             <iframe
@@ -391,7 +422,7 @@
 
     <!-- ===== 2. CANALES POR PAÍS ===== -->
     <div class="canales-section section" id="canales">
-        <h2><i class="fas fa-tv" style="margin-right:10px;"></i>Ver Canales en Vivo y en Directo</h2>
+        <h2>Canales de TV en Vivo</h2>
 
         <!-- Botones de país -->
         <div class="pais-tabs">
@@ -408,79 +439,79 @@
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LL_RGB_h_color.png" alt="LaLiga" loading="lazy"></div>
                     <div class="canal-name">LaLiga</div>
-                    <div class="canal-desc">Ver LaLiga online en vivo y en directo.</div>
+                    <div class="canal-desc">La Liga de España de fútbol profesional de primera división.</div>
                     <button class="canal-btn" onclick="loadStream('laliga')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/LaLiga_Hypermotion_2023_Vertical_Logo.svg-removebg-preview.png" alt="LaLiga 2" loading="lazy"></div>
                     <div class="canal-name">LaLiga 2</div>
-                    <div class="canal-desc">Ver LaLiga 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Segunda división del campeonato de liga español.</div>
                     <button class="canal-btn" onclick="loadStream('laliga2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Movistar Liga de Campeones" loading="lazy"></div>
-                    <div class="canal-name">Movistar Liga de Campeones</div>
-                    <div class="canal-desc">Ver Movistar Liga de Campeones en vivo.</div>
+                    <div class="canal-name">M+ Liga de Campeones</div>
+                    <div class="canal-desc">Acción y partidos de la Champions League.</div>
                     <button class="canal-btn" onclick="loadStream('movistarLC')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN" loading="lazy"></div>
                     <div class="canal-name">DAZN</div>
-                    <div class="canal-desc">Ver DAZN online en vivo y en directo.</div>
+                    <div class="canal-desc">Eventos mundiales e internacionales en directo.</div>
                     <button class="canal-btn" onclick="loadStream('dazn')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 2" loading="lazy"></div>
                     <div class="canal-name">DAZN 2</div>
-                    <div class="canal-desc">Ver DAZN 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal alternativa para múltiples partidos en directo.</div>
                     <button class="canal-btn" onclick="loadStream('dazn2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 3" loading="lazy"></div>
-                    <div class="canal-name">DAZN 3 (Eventos)</div>
-                    <div class="canal-desc">Ver DAZN 3 online en vivo y en directo.</div>
+                    <div class="canal-name">DAZN 3</div>
+                    <div class="canal-desc">Transmisiones dedicadas a eventos especiales.</div>
                     <button class="canal-btn" onclick="loadStream('dazn3')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN 4" loading="lazy"></div>
-                    <div class="canal-name">DAZN 4 (Eventos)</div>
-                    <div class="canal-desc">Ver DAZN 4 online en vivo y en directo.</div>
+                    <div class="canal-name">DAZN 4</div>
+                    <div class="canal-desc">Canal de respaldo para cobertura completa de ligas.</div>
                     <button class="canal-btn" onclick="loadStream('dazn4')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/DAZN_Logo_Master.png" alt="DAZN LaLiga" loading="lazy"></div>
                     <div class="canal-name">DAZN LaLiga</div>
-                    <div class="canal-desc">Ver DAZN LaLiga online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal dedicada a la cobertura de encuentros de LaLiga.</div>
                     <button class="canal-btn" onclick="loadStream('daznLaliga')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/images-removebg-preview%20(3).png" alt="Sky Sports LaLiga" loading="lazy"></div>
                     <div class="canal-name">Sky Sports LaLiga</div>
-                    <div class="canal-desc">Ver Sky Sports LaLiga online en vivo y en directo.</div>
+                    <div class="canal-desc">Transmisión internacional de la liga de España.</div>
                     <button class="canal-btn" onclick="loadStream('skyLaliga')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Liga de Campeones 2" loading="lazy"></div>
                     <div class="canal-name">Liga de Campeones 2</div>
-                    <div class="canal-desc">Ver Liga de Campeones 2 online en vivo.</div>
+                    <div class="canal-desc">Multisenda para UEFA Champions y Europa League.</div>
                     <button class="canal-btn" onclick="loadStream('ligacamp2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/1280px-Movistar_Liga_de_Campeones.svg.png" alt="Liga de Campeones 3" loading="lazy"></div>
                     <div class="canal-name">Liga de Campeones 3</div>
-                    <div class="canal-desc">Ver Liga de Campeones 3 online en vivo.</div>
+                    <div class="canal-desc">Cobertura adicional de la fase de grupos y playoff.</div>
                     <button class="canal-btn" onclick="loadStream('ligacamp3')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/images-removebg-preview%20(2).png" alt="M+ LaLiga TV" loading="lazy"></div>
                     <div class="canal-name">M+ LaLiga TV</div>
-                    <div class="canal-desc">Ver M+ LaLiga TV online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal oficial con análisis, resúmenes e información 24/7.</div>
                     <button class="canal-btn" onclick="loadStream('mLaligatv')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/laliga.png" alt="LaLigaTV BAR" loading="lazy"></div>
                     <div class="canal-name">LaLigaTV BAR</div>
-                    <div class="canal-desc">Ver LaLigaTV BAR online en vivo y en directo.</div>
+                    <div class="canal-desc">Transmisión exclusiva para establecimientos y eventos.</div>
                     <button class="canal-btn" onclick="loadStream('laligatvbar')">Ver Canal</button>
                 </div>
             </div>
@@ -492,13 +523,13 @@
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Premier-League-Logo-removebg-preview.png" alt="Premier League" loading="lazy"></div>
                     <div class="canal-name">Premier League</div>
-                    <div class="canal-desc">Ver Premier League online en vivo y en directo.</div>
+                    <div class="canal-desc">La liga más competitiva y emocionante de Inglaterra.</div>
                     <button class="canal-btn" onclick="loadStream('premier')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/tudun.png" alt="TUDN" loading="lazy"></div>
                     <div class="canal-name">TUDN</div>
-                    <div class="canal-desc">Ver TUDN online en vivo y en directo.</div>
+                    <div class="canal-desc">Pasión e información de los gigantes de Europa.</div>
                     <button class="canal-btn" onclick="loadStream('tudn')">Ver Canal</button>
                 </div>
             </div>
@@ -510,37 +541,37 @@
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/channels4_profile.jpg" alt="Bundesliga" loading="lazy"></div>
                     <div class="canal-name">Bundesliga</div>
-                    <div class="canal-desc">Ver Bundesliga online en vivo y en directo.</div>
+                    <div class="canal-desc">El fútbol alemán al máximo nivel, estadios llenos y goles.</div>
                     <button class="canal-btn" onclick="loadStream('bundes')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 1" loading="lazy"></div>
                     <div class="canal-name">Sky Bundesliga 1</div>
-                    <div class="canal-desc">Ver Sky Bundesliga 1 online en vivo y en directo.</div>
+                    <div class="canal-desc">Transmisión líder de los encuentros en Alemania.</div>
                     <button class="canal-btn" onclick="loadStream('skyBundes1')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 2" loading="lazy"></div>
                     <div class="canal-name">Sky Bundesliga 2</div>
-                    <div class="canal-desc">Ver Sky Bundesliga 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Multitransmisión del fútbol germano.</div>
                     <button class="canal-btn" onclick="loadStream('skyBundes2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 3" loading="lazy"></div>
                     <div class="canal-name">Sky Bundesliga 3</div>
-                    <div class="canal-desc">Ver Sky Bundesliga 3 online en vivo y en directo.</div>
+                    <div class="canal-desc">Cobertura extendida para partidos simultáneos.</div>
                     <button class="canal-btn" onclick="loadStream('skyBundes3')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 4" loading="lazy"></div>
                     <div class="canal-name">Sky Bundesliga 4</div>
-                    <div class="canal-desc">Ver Sky Bundesliga 4 online en vivo y en directo.</div>
+                    <div class="canal-desc">Eventos especiales y copa DFB Pokal.</div>
                     <button class="canal-btn" onclick="loadStream('skyBundes4')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FYjlInYXEAIfUAT-removebg-preview.png" alt="Sky Bundesliga 5" loading="lazy"></div>
                     <div class="canal-name">Sky Bundesliga 5</div>
-                    <div class="canal-desc">Ver Sky Bundesliga 5 online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal de respaldo para el fútbol del fin de semana.</div>
                     <button class="canal-btn" onclick="loadStream('skyBundes5')">Ver Canal</button>
                 </div>
             </div>
@@ -552,7 +583,7 @@
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/Serie_A.svg-removebg-preview.png" alt="Serie A" loading="lazy"></div>
                     <div class="canal-name">Serie A</div>
-                    <div class="canal-desc">Ver Serie A online en vivo y en directo.</div>
+                    <div class="canal-desc">El calcio italiano, táctica, historia y goles de leyenda.</div>
                     <button class="canal-btn" onclick="loadStream('seriea')">Ver Canal</button>
                 </div>
             </div>
@@ -564,241 +595,220 @@
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN"></div>
                     <div class="canal-name">ESPN</div>
-                    <div class="canal-desc">Ver ESPN online en vivo y en directo.</div>
+                    <div class="canal-desc">Canal principal con toda la emoción del deporte latino.</div>
                     <button class="canal-btn" onclick="loadStream('espn')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 2"></div>
                     <div class="canal-name">ESPN 2</div>
-                    <div class="canal-desc">Ver ESPN 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Partidos y competiciones de América del Sur y más.</div>
                     <button class="canal-btn" onclick="loadStream('espn2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 3"></div>
                     <div class="canal-name">ESPN 3</div>
-                    <div class="canal-desc">Ver ESPN 3 online en vivo y en directo.</div>
+                    <div class="canal-desc">Ligas europeas y alternativas en alta definición.</div>
                     <button class="canal-btn" onclick="loadStream('espn3')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 4"></div>
                     <div class="canal-name">ESPN 4</div>
-                    <div class="canal-desc">Ver ESPN 4 online en vivo y en directo.</div>
+                    <div class="canal-desc">Fútbol sudamericano y competiciones de copas.</div>
                     <button class="canal-btn" onclick="loadStream('espn4')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 5"></div>
                     <div class="canal-name">ESPN 5</div>
-                    <div class="canal-desc">Ver ESPN 5 online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal de respaldo para la Liga de Campeones.</div>
                     <button class="canal-btn" onclick="loadStream('espn5')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 6"></div>
                     <div class="canal-name">ESPN 6</div>
-                    <div class="canal-desc">Ver ESPN 6 online en vivo y en directo.</div>
+                    <div class="canal-desc">Contenido extra de torneos internacionales.</div>
                     <button class="canal-btn" onclick="loadStream('espn6')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN 7"></div>
                     <div class="canal-name">ESPN 7</div>
-                    <div class="canal-desc">Ver ESPN 7 online en vivo y en directo.</div>
+                    <div class="canal-desc">Cobertura exclusiva de eventos panamericanos.</div>
                     <button class="canal-btn" onclick="loadStream('espn7')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" alt="ESPN Premium"></div>
                     <div class="canal-name">ESPN Premium</div>
-                    <div class="canal-desc">Ver ESPN Premium online en vivo y en directo.</div>
+                    <div class="canal-desc">Liga Profesional de Fútbol y eventos exclusivos.</div>
                     <button class="canal-btn" onclick="loadStream('espnpremium')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports" loading="lazy"></div>
                     <div class="canal-name">DSports</div>
-                    <div class="canal-desc">Ver DSports online en vivo y en directo.</div>
+                    <div class="canal-desc">Líder en coberturas deportivas y copas de Sudamérica.</div>
                     <button class="canal-btn" onclick="loadStream('dsports')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports 2" loading="lazy"></div>
                     <div class="canal-name">DSports 2</div>
-                    <div class="canal-desc">Ver DSports 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Señal alterna para todo el continente americano.</div>
                     <button class="canal-btn" onclick="loadStream('dsports2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/375b69a4d4a92c83991e62ed16af7cba-removebg-preview.png" alt="DSports Plus" loading="lazy"></div>
                     <div class="canal-name">DSports Plus</div>
-                    <div class="canal-desc">Ver DSports Plus online en vivo y en directo.</div>
+                    <div class="canal-desc">Partidos y transmisiones especiales sin cortes.</div>
                     <button class="canal-btn" onclick="loadStream('dsportsplus')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/50254_750-removebg-preview.png" alt="TNT Sports" loading="lazy"></div>
                     <div class="canal-name">TNT Sports</div>
-                    <div class="canal-desc">Ver TNT Sports online en vivo y en directo.</div>
+                    <div class="canal-desc">Fútbol argentino e internacional en vivo.</div>
                     <button class="canal-btn" onclick="loadStream('tnt')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports" loading="lazy"></div>
                     <div class="canal-name">Fox Sports</div>
-                    <div class="canal-desc">Ver Fox Sports online en vivo y en directo.</div>
+                    <div class="canal-desc">Grandes ligas americanas y continentales.</div>
                     <button class="canal-btn" onclick="loadStream('foxsports')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports 2" loading="lazy"></div>
                     <div class="canal-name">Fox Sports 2</div>
-                    <div class="canal-desc">Ver Fox Sports 2 online en vivo y en directo.</div>
+                    <div class="canal-desc">Copas, torneos y cobertura en alta definición.</div>
                     <button class="canal-btn" onclick="loadStream('foxsports2')">Ver Canal</button>
                 </div>
                 <div class="canal-card">
                     <div class="canal-logo-wrap"><img src="https://raw.githubusercontent.com/21rata130ofc/Data-base-personal/refs/heads/main/FOX_Sports_logo.svg.png" alt="Fox Sports 3" loading="lazy"></div>
                     <div class="canal-name">Fox Sports 3</div>
-                    <div class="canal-desc">Ver Fox Sports 3 online en vivo y en directo.</div>
+                    <div class="canal-desc">Transmisiones especiales, fútbol juvenil e internacional.</div>
                     <button class="canal-btn" onclick="loadStream('foxsports3')">Ver Canal</button>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="decorative-separator"></div>
 
     <!-- ===== 3. REPRODUCTOR (ABAJO) ===== -->
     <div class="video-container section" id="inicio">
-        <iframe id="player" class="player-iframe" src="" allowfullscreen></iframe>
+        <div class="player-wrapper">
+            <iframe id="player" class="player-iframe" src="" allowfullscreen></iframe>
+        </div>
     </div>
 
-    <div class="decorative-separator"></div>
-
-    <!-- ===== BOTÓN INFO ===== -->
-    <div style="text-align:center; margin: 0 auto 20px auto; position:relative; z-index:2;">
-        <button onclick="toggleInfo()" id="infoToggleBtn"
-            style="padding:12px 36px; background:transparent; color:#ff7d47; border:1.5px solid #ff7d47;
-            border-radius:30px; font-size:1em; cursor:pointer; letter-spacing:1px;
-            transition:background 0.3s, color 0.3s, box-shadow 0.3s; font-family:'Roboto',sans-serif;">
+    <!-- ===== SECCIÓN DE INFORMACIÓN ===== -->
+    <div style="text-align:center; margin: 40px auto; position:relative; z-index:2;">
+        <button onclick="toggleInfo()" id="infoToggleBtn">
             <i class="fas fa-info-circle" style="margin-right:8px;"></i> Acerca de / Info
         </button>
     </div>
 
-    <!-- ===== PANEL INFO (oculto por defecto) ===== -->
-    <div id="infoPanel" style="
-        max-width:1000px; margin: 0 auto 60px auto; padding: 0 20px;
-        overflow: hidden; max-height: 0;
-        transition: max-height 0.6s ease, opacity 0.6s ease;
-        opacity: 0; position: relative; z-index: 2;">
-        <div style="
-            background: rgba(255,255,255,0.04);
-            border: 1.5px solid rgba(255,125,71,0.35);
-            border-radius: 20px; padding: 40px 36px;
-            box-shadow: 0 0 40px rgba(255,125,71,0.15);
-            text-align: left; color: #fff; line-height: 1.7;">
-            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Acerca de FutRatLibre</h2>
-            <p style="margin-bottom:15px;">FutRatLibre es tu plataforma ideal para disfrutar en vivo de los mejores canales deportivos dedicados exclusivamente al fútbol. Te ofrecemos acceso rápido y sencillo para que nunca te pierdas los partidos más importantes.</p>
-            <p style="margin-bottom:15px;">Nuestro objetivo es garantizar una experiencia de visualización fluida desde cualquier dispositivo, con una interfaz amigable y fácil de usar.</p>
-            <p style="margin-bottom:30px;">Además, proporcionamos resúmenes, análisis y noticias relacionadas con el fútbol para mantenerte al tanto de todo lo que sucede en este emocionante deporte.</p>
-            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Requisitos de VPN</h2>
-            <p style="margin-bottom:15px;">Para acceder a algunos de nuestros canales, es necesario utilizar una VPN. Recomendamos utilizar la extensión <strong>Urban VPN</strong> configurada hacia la dirección Argentina para garantizar una mejor experiencia de visualización y evitar restricciones geográficas. Sin embargo, para otros canales, el uso de una VPN no es necesario.</p>
-            <p style="margin-bottom:10px;">Si encuentras que no puedes acceder a ciertos canales, te sugerimos activar la VPN siguiendo estos pasos:</p>
-            <ol style="margin-left:22px;margin-bottom:30px;">
-                <li>Instala la extensión <a href="https://urban-vpn.com/" target="_blank" rel="noopener noreferrer" style="color:#ff7d47;">Urban VPN</a> en tu navegador.</li>
-                <li>Configura la VPN hacia la ubicación Argentina.</li>
-                <li>Recarga la página de FutRatLibre y selecciona el canal deseado.</li>
+    <div id="infoPanel">
+        <div class="info-content">
+            <h2>Acerca de FutRatLibre</h2>
+            <p>FutRatLibre es tu portal web moderno y eficiente para disfrutar de las mejores señales y transmisiones del fútbol mundial. Ofrecemos una experiencia optimizada desde dispositivos móviles y computadoras, priorizando una interfaz limpia, sin distracciones y completamente fluida.</p>
+            <p>Nuestro compromiso es brindarte un acceso directo y libre a los partidos más apasionantes de las ligas de todo el planeta.</p>
+            
+            <h2 style="margin-top:30px;">Requisitos de VPN recomendados</h2>
+            <p>Para ciertos canales de la parrilla de programación, se sugiere el uso de una conexión privada. Recomendamos utilizar la extensión gratuita <strong>Urban VPN</strong> establecida en la ubicación de Argentina. Esto evitará bloqueos de procedencia y mejorará los tiempos de carga en múltiples servidores externos.</p>
+            <ol>
+                <li>Consigue la extensión oficial de <a href="https://urban-vpn.com/" target="_blank" rel="noopener noreferrer">Urban VPN</a>.</li>
+                <li>Actívala y selecciona como país de destino: <strong>Argentina</strong>.</li>
+                <li>Actualiza el sitio y accede de forma transparente a cualquier stream bloqueado.</li>
             </ol>
-            <h2 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Canales Caídos</h2>
-            <p style="margin-bottom:15px;">Es importante mencionar que, si algunos canales están caídos o no cargan, podría deberse a que actualmente no hay partidos en disputa para esa liga o canal. Te recomendamos volver a intentarlo más tarde cuando haya eventos deportivos programados.</p>
-            <p>Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos a través de nuestras redes sociales.</p>
-            <div style="text-align:center;margin-top:28px;">
-                <button onclick="toggleInfo()"
-                    style="padding:10px 30px; background:#ff7d47; color:#fff; border:none;
-                    border-radius:25px; font-size:0.95em; cursor:pointer; font-family:'Roboto',sans-serif;">
-                    <i class="fas fa-times" style="margin-right:6px;"></i> Cerrar
+            
+            <h2 style="margin-top:30px;">¿Canales no disponibles o fuera del aire?</h2>
+            <p>Recuerda que si algún canal se encuentra "caído" o sin señal, comúnmente se debe a que no se está disputando ningún partido en vivo dentro de la programación de esa emisora. Te sugerimos revisar la Agenda del Día para comprobar los horarios correspondientes.</p>
+            
+            <div style="text-align:center; margin-top:30px;">
+                <button onclick="toggleInfo()" style="padding:10px 30px; background:var(--accent); color:#fff; border:none; border-radius:25px; cursor:pointer; font-weight:600;">
+                    Cerrar Información
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ===== ABOUT (eliminado, reemplazado por panel) ===== -->
-    <div class="about-section section" id="acerca" style="display:none;">
-        <h2 style="text-align:center;font-size:2.5em;color:#ff7d47;text-transform:uppercase;margin-bottom:20px;">ACERCA DE FUTRATLIBRE</h2>
-        <p>FutRatLibre es tu plataforma ideal para disfrutar en vivo de los mejores canales deportivos dedicados exclusivamente al fútbol. Te ofrecemos acceso rápido y sencillo para que nunca te pierdas los partidos más importantes.</p>
-        <p>Nuestro objetivo es garantizar una experiencia de visualización fluida desde cualquier dispositivo, con una interfaz amigable y fácil de usar.</p>
-        <p>Además, proporcionamos resúmenes, análisis y noticias relacionadas con el fútbol para mantenerte al tanto de todo lo que sucede en este emocionante deporte.</p>
-        <h2 style="text-align:center;font-size:2.5em;color:#ff7d47;text-transform:uppercase;margin-bottom:20px;">Requisitos de VPN</h2>
-        <p>Para acceder a algunos de nuestros canales, es necesario utilizar una VPN. Recomendamos utilizar la extensión <strong>Urban VPN</strong> configurada hacia la dirección Argentina para garantizar una mejor experiencia de visualización y evitar restricciones geográficas. Sin embargo, para otros canales, el uso de una VPN no es necesario.</p>
-        <p>Si encuentras que no puedes acceder a ciertos canales, te sugerimos activar la VPN siguiendo estos pasos:</p>
-        <ol>
-            <li>Instala la extensión <a href="https://urban-vpn.com/" target="_blank" rel="noopener noreferrer">Urban VPN</a> en tu navegador.</li>
-            <li>Configura la VPN hacia la ubicación Argentina.</li>
-            <li>Recarga la página de FutRatLibre y selecciona el canal deseado.</li>
-        </ol>
-        <h3 style="text-align:center;font-size:2em;color:#ff7d47;text-transform:uppercase;margin-top:30px;">CANALES CAÍDOS</h3>
-        <p>Es importante mencionar que, si algunos canales están caídos o no cargan, podría deberse a que actualmente no hay partidos en disputa para esa liga o canal. Te recomendamos volver a intentarlo más tarde cuando haya eventos deportivos programados.</p>
-        <p>Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos a través de nuestra sección de <a href="#" onclick="showContact()">Contacto</a>.</p>
-    </div>
-
-    <footer class="section">
-        <p style="text-align:center;font-size:14px;margin-bottom:20px;">
-            © 2024 FutRatLibre. Todos los derechos reservados.
-        </p>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>© 2026 FutRatLibre. Todos los derechos reservados. Rediseñado con un enfoque moderno y de alto rendimiento.</p>
         <div class="social-icons">
             <a href="https://instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://tiktok.com/@12.eriicc_" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://discord.com/users/21rata130_" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://discord.com/users/12.eriicc_" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
             <a href="https://github.com/21rata130ofc" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
         </div>
     </footer>
 
+    <!-- ===== CONTACT MODAL ===== -->
     <div id="modalOverlay"></div>
     <div id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
         <h2 id="contactModalTitle">Contacto</h2>
         <div class="social-links">
-            <h3>Mis Redes Sociales</h3>
+            <h3>Mis Redes Oficiales</h3>
             <ul>
-                <li><strong>Instagram:</strong> <a href="https://www.instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer">21rata130_</a></li>
-                <li><strong>TikTok:</strong>    <a href="https://tiktok.com/@12.eriic_"         target="_blank" rel="noopener noreferrer">21rata130</a></li>
-                <li><strong>Discord:</strong>   <a href="https://discord.com/users/21rata130_"  target="_blank" rel="noopener noreferrer">21rata130_</a></li>
+                <li><strong>Instagram:</strong> <a href="https://www.instagram.com/12.eriicc_" target="_blank" rel="noopener noreferrer">@12.eriicc_</a></li>
+                <li><strong>TikTok:</strong>    <a href="https://tiktok.com/@12.eriic_"         target="_blank" rel="noopener noreferrer">@12.eriic_</a></li>
+                <li><strong>Discord:</strong>   <a href="https://discord.com/users/12.eriicc_"  target="_blank" rel="noopener noreferrer">21rata130_</a></li>
                 <li><strong>GitHub:</strong>    <a href="https://github.com/21rata130ofc"       target="_blank" rel="noopener noreferrer">21rata130ofc</a></li>
             </ul>
         </div>
         <div class="additional-info">
-            <h3>Contacto Alternativo</h3>
-            <p>Si deseas ponerte en contacto con nosotros, puedes hacerlo a través de nuestras redes sociales mencionadas arriba.</p>
-            <p>También puedes unirte a nuestro servidor de Discord para interactuar directamente con la comunidad.</p>
+            <h3>Atención directa</h3>
+            <p>Comunícate por cualquiera de las redes listadas si experimentas fallas persistentes en los servidores.</p>
+            <p>¡Únete a la comunidad oficial en Discord para enterarte de actualizaciones de canales en tiempo real!</p>
         </div>
-        <button type="button" class="close-button" onclick="hideContact()">Cerrar</button>
+        <button type="button" class="close-button" onclick="hideContact()">Entendido, Cerrar</button>
     </div>
 
+    <!-- VOLVER ARRIBA -->
     <button id="backToTop" title="Volver Arriba"><i class="fas fa-arrow-up"></i></button>
 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
+        // Lógica de Tabs / Selección de países
         function showPais(pais) {
             document.querySelectorAll('.pais-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.pais-btn').forEach(b => b.classList.remove('active'));
+            
             document.getElementById('pais-' + pais).classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
+        // Mostrar / Ocultar Información con animación suave
         function toggleInfo() {
             const panel = document.getElementById('infoPanel');
-            const btn   = document.getElementById('infoToggleBtn');
+            const btn = document.getElementById('infoToggleBtn');
             const isOpen = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+            
             if (isOpen) {
                 panel.style.maxHeight = '0px';
-                panel.style.opacity   = '0';
+                panel.style.opacity = '0';
                 btn.innerHTML = '<i class="fas fa-info-circle" style="margin-right:8px;"></i> Acerca de / Info';
             } else {
                 panel.style.maxHeight = '2000px';
-                panel.style.opacity   = '1';
-                btn.innerHTML = '<i class="fas fa-times" style="margin-right:8px;"></i> Cerrar Info';
-                setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                panel.style.opacity = '1';
+                btn.innerHTML = '<i class="fas fa-times" style="margin-right:8px;"></i> Cerrar Información';
+                setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
             }
         }
 
+        // Ventana Modal de Contacto
         function showContact() {
-            document.getElementById('contactModal').classList.add('active');
-            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById('contactModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('contactModal').classList.add('active');
+                document.getElementById('modalOverlay').classList.add('active');
+            }, 10);
         }
         function hideContact() {
             document.getElementById('contactModal').classList.remove('active');
             document.getElementById('modalOverlay').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('contactModal').style.display = 'none';
+                document.getElementById('modalOverlay').style.display = 'none';
+            }, 300);
         }
 
+        // Cuentas de Servidores Base64 Protegidos (Conservando la estructura exacta original)
         const _s = {
             espn:     atob('aHR0cHM6Ly9sYTEyaGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPWVzcG4='),
             laliga:   atob('aHR0cHM6Ly93d3cuY2Fwb3BsYXllci5uZXQvcGxheS9sYWxpZ2EzLnBocA=='),
@@ -839,69 +849,78 @@
             tudn:           atob('aHR0cHM6Ly9sYTE0aGQuY29tL3Zpdm8vY2FuYWxlcy5waHA/c3RyZWFtPXR1ZG4=')
         };
 
+        // Carga de Reproductor Seguro
         function loadStream(key) {
+            const container = document.getElementById('inicio');
             const player = document.getElementById('player');
+            const navLink = document.getElementById('nav-player-link');
             const url = _s[key];
-            const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;background:#000}</style></head><body><iframe src="${url}" style="width:100%;height:100vh;border:none" allowfullscreen></iframe></body></html>`;
+            
+            // Creamos un Blob seguro para incrustar el iframe con políticas limpias
+            const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;background:#000;overflow:hidden;}iframe{width:100%;height:100vh;border:none;}</style></head><body><iframe src="${url}" allowfullscreen></iframe></body></html>`;
             const blob = new Blob([html], {type: 'text/html'});
+            
+            // Mostrar contenedor e inicializar reproducción
+            container.classList.add('active');
+            navLink.style.display = 'flex';
             player.src = URL.createObjectURL(blob);
-            player.scrollIntoView({ behavior: 'smooth' });
+            
+            // Scroll animado premium
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
+        // Recargar el iframe de la agenda diaria
         function reloadAgenda() {
             const frame = document.getElementById('agendaFrame');
-            const btn = document.querySelector('.agenda-reload-btn i');
-            btn.style.animation = 'spin 0.8s linear infinite';
+            const icon = document.querySelector('.agenda-reload-btn i');
+            icon.style.transition = 'transform 0.8s ease';
+            icon.style.transform = 'rotate(360deg)';
+            
             frame.src = frame.src;
-            setTimeout(() => { btn.style.animation = ''; }, 1500);
+            setTimeout(() => { icon.style.transform = 'rotate(0deg)'; }, 800);
         }
 
-        for (let i = 0; i < 50; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = `${Math.random()*100}vw`;
-            p.style.top  = `${Math.random()*100}vh`;
-            p.style.animationDuration = `${Math.random()*4+3}s`;
-            document.body.appendChild(p);
-        }
-        for (let i = 0; i < 30; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            s.style.left = `${Math.random()*100}vw`;
-            s.style.top  = `${Math.random()*100}vh`;
-            s.style.animationDuration = `${Math.random()*5+5}s`;
-            const sz = `${Math.random()*3+1}px`;
-            s.style.width = sz; s.style.height = sz;
-            document.body.appendChild(s);
-        }
-
+        // Navegación en Dispositivos Móviles (Hamburgo)
         const hamburger = document.getElementById('hamburger');
-        const navbar    = document.getElementById('navbar');
+        const navbar = document.getElementById('navbar');
+        
         hamburger.addEventListener('click', () => {
             navbar.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
+
+        // Evento de Cierre del Menú Móvil tras hacer clic
         navbar.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                if (navbar.classList.contains('active')) {
-                    navbar.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+                
+                // Actualizar estado activo visual
+                navbar.querySelectorAll('a').forEach(el => el.classList.remove('active'));
+                link.classList.add('active');
             });
         });
 
+        // Quitar Preloader
         window.addEventListener('load', () => {
-            document.getElementById('preloader').classList.add('hidden');
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hidden');
         });
 
+        // Botón Volver Arriba
         const backToTopButton = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
-            backToTopButton.style.display = window.scrollY > 300 ? 'block' : 'none';
+            if (window.scrollY > 400) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
         });
         backToTopButton.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // Observer para animaciones en scroll
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -910,26 +929,8 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.05 });
             document.querySelectorAll('.section').forEach(s => observer.observe(s));
-        });
-
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 700 } },
-                "color": { "value": "#ff7d47" },
-                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
-                "opacity": { "value": 0.7, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.3, "sync": false } },
-                "size":    { "value": 3,   "random": true, "anim": { "enable": false } },
-                "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-                "modes":  { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
-            },
-            "retina_detect": true
         });
     </script>
 </body>
