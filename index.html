@@ -295,8 +295,6 @@
             width: 100%;
         }
 
-
-
         .loading-spinner {
             display: flex; justify-content: center; align-items: center;
             padding: 40px; gap: 12px;
@@ -464,6 +462,9 @@
             </button>
             <button class="header-tab-btn" onclick="switchMainTab('otros')" id="header-tab-otros">
                 <i class="fas fa-tv"></i> Otros Deportes
+            </button>
+            <button class="header-tab-btn" onclick="switchMainTab('ufc')" id="header-tab-ufc">
+                <i class="fas fa-fist-raised"></i> UFC
             </button>
         </div>
 
@@ -777,12 +778,35 @@
         <div id="otros-content" class="main-tab-content">
             <div id="eventos-container" style="width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--border-color); background: white;">
                 <iframe 
-                    id="daddyLiveFrame"
-                    src="https://daddylive.org/" 
-                    style="width: 100%; height: 900px; border: none; display: block; background: white; margin-top: -220px;"
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                    title="DaddyLive - Eventos Populares">
-                </iframe>
+    id="daddyLiveFrame"
+    src="https://daddylive.org/" 
+    style="width: 100%; height: 900px; border: none; display: block; background: white; margin-top: -220px;"
+    title="DaddyLive - Eventos Populares">
+</iframe>
+            </div>
+        </div>
+
+        <!-- SECCIÓN UFC -->
+        <div id="ufc-content" class="main-tab-content">
+            <div class="canales-grid">
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/UFC_Logo.svg/1200px-UFC_Logo.svg.png" alt="UFC Stream 1" loading="lazy"></div>
+                    <div class="canal-name">UFC Stream 1</div>
+                    <div class="canal-desc">Transmisión en vivo de eventos UFC principales.</div>
+                    <button class="canal-btn" onclick="loadStreamUFC('ufc1')">Ver Stream</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/UFC_Logo.svg/1200px-UFC_Logo.svg.png" alt="UFC Stream 2" loading="lazy"></div>
+                    <div class="canal-name">UFC Stream 2</div>
+                    <div class="canal-desc">Señal alternativa para cobertura simultánea.</div>
+                    <button class="canal-btn" onclick="loadStreamUFC('ufc2')">Ver Stream</button>
+                </div>
+                <div class="canal-card">
+                    <div class="canal-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/UFC_Logo.svg/1200px-UFC_Logo.svg.png" alt="UFC Stream 3" loading="lazy"></div>
+                    <div class="canal-name">UFC Stream 3</div>
+                    <div class="canal-desc">Transmisión complementaria con análisis en directo.</div>
+                    <button class="canal-btn" onclick="loadStreamUFC('ufc3')">Ver Stream</button>
+                </div>
             </div>
         </div>
     </div>
@@ -864,7 +888,14 @@
     <button id="backToTop" title="Volver Arriba"><i class="fas fa-arrow-up"></i></button>
 
     <script>
-        // Cambiar entre pestañas principales (Fútbol / Otros Deportes)
+        // URLs de UFC Base64 Protegidas
+        const _ufc = {
+            ufc1: 'https://tvcstreams.pl/player1/sTL1/3',
+            ufc2: 'https://radamel.icu/reproductor/canal1.php?width=700&height=438',
+            ufc3: 'https://radamel.icu/reproductor/canal2.php?width=700&height=438'
+        };
+
+        // Cambiar entre pestañas principales (Fútbol / Otros Deportes / UFC)
         function switchMainTab(tab) {
             // Ocultar todos los contenidos
             document.querySelectorAll('.main-tab-content').forEach(content => {
@@ -896,7 +927,7 @@
             const agendaSection = document.querySelector('.agenda-section');
             if (tab === 'futbol') {
                 agendaSection.style.display = 'block';
-            } else if (tab === 'otros') {
+            } else {
                 agendaSection.style.display = 'none';
             }
         }
@@ -993,6 +1024,23 @@
             const player = document.getElementById('player');
             const navLink = document.getElementById('nav-player-link');
             const url = _s[key];
+            
+            const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;background:#000;overflow:hidden;}iframe{width:100%;height:100vh;border:none;}</style></head><body><iframe src="${url}" allowfullscreen></iframe></body></html>`;
+            const blob = new Blob([html], {type: 'text/html'});
+            
+            container.classList.add('active');
+            navLink.style.display = 'flex';
+            player.src = URL.createObjectURL(blob);
+            
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Carga de Reproductor para UFC
+        function loadStreamUFC(key) {
+            const container = document.getElementById('inicio');
+            const player = document.getElementById('player');
+            const navLink = document.getElementById('nav-player-link');
+            const url = _ufc[key];
             
             const html = `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;background:#000;overflow:hidden;}iframe{width:100%;height:100vh;border:none;}</style></head><body><iframe src="${url}" allowfullscreen></iframe></body></html>`;
             const blob = new Blob([html], {type: 'text/html'});
